@@ -62,21 +62,18 @@ public class Main extends Application {
         GraphNode<String> h = new GraphNode<>("Orange");
 
 
-        a.connectToNodeDirected(b);
-        a.connectToNodeDirected(c);
-        b.connectToNodeDirected(c);
-        b.connectToNodeDirected(g);
-        c.connectToNodeDirected(d);
-        g.connectToNodeDirected(e);
-        d.connectToNodeDirected(e);
-        f.connectToNodeDirected(e);
-        e.connectToNodeDirected(h);
+        a.connectToNodeDirected(b, 1);
+        a.connectToNodeDirected(c, 3);
+        b.connectToNodeDirected(c, 6);
+        b.connectToNodeDirected(g, 0);
+        c.connectToNodeDirected(d, 2);
+        g.connectToNodeDirected(e, 5);
+        d.connectToNodeDirected(e, 2);
+        f.connectToNodeDirected(e, 3);
+        e.connectToNodeDirected(h, 6);
 
         ArrayList<GraphNode<?>> agenda = new ArrayList<>();
         agenda.add(a);
-
-        Searching.breadthFirstTraverse(agenda, null);
-        System.out.println("\n \n");
 
         List<GraphNode<?>> bfsPath = Searching.findPathBreadthFirst(a, "Kiwi");
         for (GraphNode<?> n : bfsPath) System.out.println(n.getData());

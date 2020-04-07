@@ -7,7 +7,7 @@ public class GraphNode<E> {
     private int xCoordinate, yCoordinate;
     private String name;
 
-    private List<GraphNode<E>> adjList = new ArrayList<>();
+    private List<GraphEdge> adjList = new ArrayList<>();
 
     public GraphNode(E data) {
         this.data = data;
@@ -19,13 +19,13 @@ public class GraphNode<E> {
         this.setyCoordinate(y);
     }
 
-    public void connectToNodeDirected(GraphNode<E> destNode) {
-        adjList.add(destNode);
+    public void connectToNodeDirected(GraphNode<E> destNode, int cost) {
+        adjList.add(new GraphEdge(destNode, cost));
     }
 
-    public void connectToNodeUndirected(GraphNode<E> destNode) {
-        adjList.add(destNode);
-        destNode.adjList.add(this);
+    public void connectToNodeUndirected(GraphNode<E> destNode, int cost) {
+        adjList.add(new GraphEdge(destNode, cost));
+        destNode.adjList.add(new GraphEdge(this, cost));
     }
 
     public int getxCoordinate() {
@@ -66,11 +66,7 @@ public class GraphNode<E> {
         this.data = data;
     }
 
-    public List<GraphNode<E>> getAdjList() {
+    public List<GraphEdge> getAdjList() {
         return adjList;
-    }
-
-    public void setAdjList(List<GraphNode<E>> adjList) {
-        this.adjList = adjList;
     }
 }
