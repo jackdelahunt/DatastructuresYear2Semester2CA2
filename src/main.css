@@ -1,0 +1,5 @@
+.mapBtn {
+    -fx-background-radius: 10%;
+    -fx-border-radius: 50%;
+    -fx-background-color: Red;
+}
