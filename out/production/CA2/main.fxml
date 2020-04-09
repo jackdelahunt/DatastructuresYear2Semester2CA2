@@ -12,9 +12,10 @@
             </children></AnchorPane>
         <VBox prefHeight="800.0" prefWidth="261.0">
             <children>
+                <TextField fx:id="nodeName" promptText="Name" />
                 <TextField fx:id="addPointX" promptText="X-Coordinate" />
                 <TextField fx:id="addPointY" promptText="Y-Coordinate" />
-                <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker" />
+                <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
             </children>
         </VBox>
     </children>
