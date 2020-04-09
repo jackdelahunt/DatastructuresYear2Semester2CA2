@@ -22,32 +22,9 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         test();
-        readDatabaseFile();
         launch(args);
-    }
-
-    //Method that reads in the database file
-    public static void readDatabaseFile() throws IOException{
-        String nodesFile = "src/CulturalNodes.txt";
-        String line;
-
-        BufferedReader nodesFileBr = new BufferedReader(new FileReader(nodesFile));
-        //reads line by line until line is null/empty
-        while((line = nodesFileBr.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length != 3) {
-                nodesFileBr.close();
-                throw new IOException("Invalid line in nodes file " + line);
-            }
-            String name = parts[0];
-            int x = Integer.parseInt(parts[1]);
-            int y = Integer.parseInt(parts[2]);
-            GraphNode<?> node = new GraphNode<>(name,x,y);
-            System.out.println(node.toString());
-        }
-        nodesFileBr.close();
     }
 
     public static void test() {

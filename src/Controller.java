@@ -8,21 +8,28 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Controller {
+
     @FXML
     private ImageView imageView;
     @FXML
-    private TextField addPointX, addPointY;
+    private TextField nodeName, addPointX, addPointY;
     @FXML
     private Button addMarkerBtn;
     private static File file;
     private Image img;
-    private int imageWidth = 800, imageHeight = 800;
+    ArrayList<GraphNode<?>> agendaList = new ArrayList<>();
 
-    public void initialize() {
+    public void initialize() throws IOException {
         fileChooser();
+        readDatabaseFile();
+        addCulturalNodesOnMap();
     }
 
     public void fileChooser() {
@@ -32,12 +39,60 @@ public class Controller {
 
         if (file != null) {
             String path = file.toURI().toString();
+            int imageHeight = 800, imageWidth = 800;
             img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
     }
 
-    //Adds a marker onto map where user has clicked
+    public void readDatabaseFile() throws IOException {
+        String nodesFile = "src/CulturalNodes.txt";
+        String line;
+
+        BufferedReader nodesFileBr = new BufferedReader(new FileReader(nodesFile));
+        while ((line = nodesFileBr.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length != 3) {
+                nodesFileBr.close();
+                throw new IOException("Invalid line in nodes file " + line);
+            }
+            String name = parts[0];
+            int x = Integer.parseInt(parts[1]);
+            int y = Integer.parseInt(parts[2]);
+            GraphNode<?> node = new GraphNode<>(name, x, y);
+            agendaList.add(node);
+            System.out.println(node.toString());
+        }
+        nodesFileBr.close();
+    }
+
+    //Adds icons(buttons) to cultural node position on the map
+    public void addCulturalNodesOnMap() {
+        int btnSize = 25;
+        int btnIndex = 0;
+        Button[] culturalBtns = new Button[agendaList.size()];
+
+        for (int i = 0; i < agendaList.size(); i++) {
+            culturalBtns[btnIndex] = new Button();
+            culturalBtns[btnIndex].getStyleClass().clear();
+            culturalBtns[btnIndex].getStyleClass().add("culturalNodeIcon");
+            culturalBtns[btnIndex].setMinSize(btnSize, btnSize);
+            culturalBtns[btnIndex].setMaxSize(btnSize, btnSize);
+            culturalBtns[btnIndex].setPrefSize(btnSize, btnSize);
+            culturalBtns[btnIndex].setTranslateX(agendaList.get(btnIndex).getxCoordinate());
+            culturalBtns[btnIndex].setTranslateY(agendaList.get(btnIndex).getyCoordinate());
+
+            int finalBtnIndex = btnIndex;
+            culturalBtns[btnIndex].setOnAction(e -> {
+                nodeName.setText(agendaList.get(finalBtnIndex).getName());
+                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getxCoordinate()));
+                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getyCoordinate()));
+            });
+
+            ((Pane) imageView.getParent()).getChildren().add(culturalBtns[btnIndex++]);
+        }
+    }
+
     public void addMarkerOnMap(int x, int y) {
         //new GraphNode(x,y);
 
@@ -49,13 +104,12 @@ public class Controller {
         markerBtn.setMinSize(2 * radius, 2 * radius);
         markerBtn.setMaxSize(2 * radius, 2 * radius);
 
-        markerBtn.setTranslateX(x-radius);
-        markerBtn.setTranslateY(y-radius);
+        markerBtn.setTranslateX(x - radius);
+        markerBtn.setTranslateY(y - radius);
 
         ((Pane) imageView.getParent()).getChildren().add(markerBtn);
     }
 
-    //detects when map is clicked and gets coordinates
     public void mapClicked(MouseEvent e) {
         int x = (int) e.getX();
         int y = (int) e.getY();

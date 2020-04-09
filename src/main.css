@@ -3,3 +3,9 @@
     -fx-border-radius: 50%;
     -fx-background-color: Red;
 }
+
+.culturalNodeIcon {
+    -fx-background-image: url("geopoint.png");
+    -fx-background-radius: 50%;
+    -fx-text-fill: transparent;
+}
