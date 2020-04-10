@@ -40,19 +40,18 @@ public class Main extends Application {
 
 
         a.connectToNodeDirected(b, 1);
-        a.connectToNodeDirected(c, 3);
         b.connectToNodeDirected(c, 6);
-        b.connectToNodeDirected(g, 0);
         c.connectToNodeDirected(d, 2);
-        g.connectToNodeDirected(e, 5);
-        d.connectToNodeDirected(e, 2);
-        f.connectToNodeDirected(e, 3);
-        e.connectToNodeDirected(h, 6);
+        d.connectToNodeDirected(e, 5);
+        e.connectToNodeDirected(f, 2);
+        f.connectToNodeDirected(g, 3);
+        g.connectToNodeDirected(h, 6);
 
         ArrayList<GraphNode<?>> agenda = new ArrayList<>();
         agenda.add(a);
 
-        List<GraphNode<?>> bfsPath = Searching.findPathBreadthFirst(a, "Kiwi");
+        List<GraphNode<?>> bfsPath = Searching.findPathBreadthFirst(a, "Apple", 0);
         for (GraphNode<?> n : bfsPath) System.out.println(n.getData());
+        System.out.println(Searching.costOfLast);
     }
 }
