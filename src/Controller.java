@@ -46,50 +46,55 @@ public class Controller {
     }
 
     public void readDatabaseFile() throws IOException {
-        String nodesFile = "src/CulturalNodes.txt";
-        String line;
+        if (file != null) {
+            String nodesFile = "src/CulturalNodes.txt";
+            String line;
 
-        BufferedReader nodesFileBr = new BufferedReader(new FileReader(nodesFile));
-        while ((line = nodesFileBr.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length != 3) {
-                nodesFileBr.close();
-                throw new IOException("Invalid line in nodes file " + line);
+            BufferedReader nodesFileBr = new BufferedReader(new FileReader(nodesFile));
+            System.out.println("Database file loaded in the following:");
+            while ((line = nodesFileBr.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length != 3) {
+                    nodesFileBr.close();
+                    throw new IOException("Invalid line in nodes file " + line);
+                }
+                String name = parts[0];
+                int x = Integer.parseInt(parts[1]);
+                int y = Integer.parseInt(parts[2]);
+                GraphNode<?> node = new GraphNode<>(name, x, y);
+                agendaList.add(node);
+                System.out.println(node.toString());
             }
-            String name = parts[0];
-            int x = Integer.parseInt(parts[1]);
-            int y = Integer.parseInt(parts[2]);
-            GraphNode<?> node = new GraphNode<>(name, x, y);
-            agendaList.add(node);
-            System.out.println(node.toString());
+            nodesFileBr.close();
         }
-        nodesFileBr.close();
     }
 
     //Adds icons(buttons) to cultural node position on the map
     public void addCulturalNodesOnMap() {
-        int btnSize = 25;
-        int btnIndex = 0;
-        Button[] culturalBtns = new Button[agendaList.size()];
+        if (file != null) {
+            int btnSize = 25;
+            int btnIndex = 0;
+            Button[] culturalBtns = new Button[agendaList.size()];
 
-        for (int i = 0; i < agendaList.size(); i++) {
-            culturalBtns[btnIndex] = new Button();
-            culturalBtns[btnIndex].getStyleClass().clear();
-            culturalBtns[btnIndex].getStyleClass().add("culturalNodeIcon");
-            culturalBtns[btnIndex].setMinSize(btnSize, btnSize);
-            culturalBtns[btnIndex].setMaxSize(btnSize, btnSize);
-            culturalBtns[btnIndex].setPrefSize(btnSize, btnSize);
-            culturalBtns[btnIndex].setTranslateX(agendaList.get(btnIndex).getxCoordinate());
-            culturalBtns[btnIndex].setTranslateY(agendaList.get(btnIndex).getyCoordinate());
+            for (int i = 0; i < agendaList.size(); i++) {
+                culturalBtns[btnIndex] = new Button();
+                culturalBtns[btnIndex].getStyleClass().clear();
+                culturalBtns[btnIndex].getStyleClass().add("culturalNodeIcon");
+                culturalBtns[btnIndex].setMinSize(btnSize, btnSize);
+                culturalBtns[btnIndex].setMaxSize(btnSize, btnSize);
+                culturalBtns[btnIndex].setPrefSize(btnSize, btnSize);
+                culturalBtns[btnIndex].setTranslateX(agendaList.get(btnIndex).getxCoordinate());
+                culturalBtns[btnIndex].setTranslateY(agendaList.get(btnIndex).getyCoordinate());
 
-            int finalBtnIndex = btnIndex;
-            culturalBtns[btnIndex].setOnAction(e -> {
-                nodeName.setText(agendaList.get(finalBtnIndex).getName());
-                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getxCoordinate()));
-                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getyCoordinate()));
-            });
+                int finalBtnIndex = btnIndex;
+                culturalBtns[btnIndex].setOnAction(e -> {
+                    nodeName.setText(agendaList.get(finalBtnIndex).getName());
+                    addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getxCoordinate()));
+                    addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getyCoordinate()));
+                });
 
-            ((Pane) imageView.getParent()).getChildren().add(culturalBtns[btnIndex++]);
+                ((Pane) imageView.getParent()).getChildren().add(culturalBtns[btnIndex++]);
+            }
         }
     }
 
