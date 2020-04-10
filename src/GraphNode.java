@@ -19,11 +19,11 @@ public class GraphNode<E> {
         this.setyCoordinate(y);
     }
 
-    public void connectToNodeDirected(GraphNode<E> destNode, int cost) {
+    public void connectToNodeDirected(GraphNode<?> destNode, int cost) {
         adjList.add(new GraphEdge(destNode, cost));
     }
 
-    public void connectToNodeUndirected(GraphNode<E> destNode, int cost) {
+    public void connectToNodeUndirected(GraphNode<?> destNode, int cost) {
         adjList.add(new GraphEdge(destNode, cost));
         destNode.adjList.add(new GraphEdge(this, cost));
     }

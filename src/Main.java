@@ -21,7 +21,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         test();
         launch(args);
@@ -38,7 +37,6 @@ public class Main extends Application {
         GraphNode<String> g = new GraphNode<>("Pear");
         GraphNode<String> h = new GraphNode<>("Orange");
 
-
         a.connectToNodeDirected(b, 1);
         b.connectToNodeDirected(c, 6);
         c.connectToNodeDirected(d, 2);
@@ -50,8 +48,29 @@ public class Main extends Application {
         ArrayList<GraphNode<?>> agenda = new ArrayList<>();
         agenda.add(a);
 
-        List<GraphNode<?>> bfsPath = Searching.findPathBreadthFirst(a, "Apple", 0);
+        List<GraphNode<?>> bfsPath = Searching.findPathBreadthFirst(a, "Plum", 0);
         for (GraphNode<?> n : bfsPath) System.out.println(n.getData());
         System.out.println(Searching.costOfLast);
+
+        //Commented code does exact same as above but for the cultural node objects
+        //the commented code in Searching is for this to work.
+
+//        GraphNode<?> aa = new GraphNode<>("Vatican City", 230, 390);
+//        GraphNode<?> bb = new GraphNode<>("Engelsburg", 340, 420);
+//        GraphNode<?> cc = new GraphNode<>("Colosseum", 590, 645);
+//        GraphNode<?> dd = new GraphNode<>("Trevi Fountain", 490, 450);
+//        GraphNode<?> ee = new GraphNode<>("People's Square", 430, 275);
+//
+//        aa.connectToNodeDirected(bb, 1);
+//        bb.connectToNodeDirected(cc, 6);
+//        cc.connectToNodeDirected(dd, 2);
+//        dd.connectToNodeDirected(ee, 5);
+//
+//        ArrayList<GraphNode<?>> agenda2 = new ArrayList<>();
+//        agenda.add(aa);
+//
+//        List<GraphNode<?>> bfsPath2 = Searching.findPathBreadthFirst(aa, ee, 0);
+//        for (GraphNode<?> nn : bfsPath2) System.out.println(nn.toString());
+//        System.out.println("Cost of path: " + Searching.costOfLast);
     }
 }
