@@ -1,4 +1,10 @@
-.mapBtn {
+.mapStartBtn {
+    -fx-background-radius: 10%;
+    -fx-border-radius: 50%;
+    -fx-background-color: Green;
+}
+
+.mapEndBtn {
     -fx-background-radius: 10%;
     -fx-border-radius: 50%;
     -fx-background-color: Red;

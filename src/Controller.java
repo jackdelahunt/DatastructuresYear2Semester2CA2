@@ -8,11 +8,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
+
 
 public class Controller {
 
@@ -20,15 +18,14 @@ public class Controller {
     private ImageView imageView;
     @FXML
     private TextField nodeName, addPointX, addPointY;
-    @FXML
-    private Button addMarkerBtn;
     private static File file;
-    private Image img;
-    ArrayList<GraphNode<?>> agendaList = new ArrayList<>();
+    public static ArrayList<GraphNode<?>> agendaList = new ArrayList<>();
+    int limit = 0;
 
-    public void initialize() throws IOException {
+    public void initialize() {
         fileChooser();
-        readDatabaseFile();
+        ListManager.initialize();
+        loadAll();
         addCulturalNodesOnMap();
     }
 
@@ -40,32 +37,8 @@ public class Controller {
         if (file != null) {
             String path = file.toURI().toString();
             int imageHeight = 800, imageWidth = 800;
-            img = new Image(path, imageWidth, imageHeight, false, true);
+            Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
-        }
-    }
-
-    public void readDatabaseFile() throws IOException {
-        if (file != null) {
-            String nodesFile = "src/CulturalNodes.txt";
-            String line;
-
-            BufferedReader nodesFileBr = new BufferedReader(new FileReader(nodesFile));
-            System.out.println("Database file loaded in the following:");
-            while ((line = nodesFileBr.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length != 3) {
-                    nodesFileBr.close();
-                    throw new IOException("Invalid line in nodes file " + line);
-                }
-                String name = parts[0];
-                int x = Integer.parseInt(parts[1]);
-                int y = Integer.parseInt(parts[2]);
-                GraphNode<?> node = new GraphNode<>(name, x, y);
-                agendaList.add(node);
-                System.out.println(node.toString());
-            }
-            nodesFileBr.close();
         }
     }
 
@@ -95,14 +68,16 @@ public class Controller {
 
                 ((Pane) imageView.getParent()).getChildren().add(culturalBtns[btnIndex++]);
             }
-        }
+        } else System.err.println("No Image Selected");
     }
 
     public void addMarkerOnMap(int x, int y) {
-        //new GraphNode(x,y);
 
+        GraphNode<?> temp = new GraphNode<>(limit == 0 ? "Start" : "End",x,y);
+        agendaList.add(temp);
         Button markerBtn = new Button();
-        markerBtn.getStyleClass().add("mapBtn");
+        //determines if its the start or end node, sets color accordingly
+        markerBtn.getStyleClass().add(limit == 0 ? "mapStartBtn" : "mapEndBtn");
         //Makes button circular
         double radius = 5;
         markerBtn.setShape(new Circle(radius));
@@ -122,6 +97,26 @@ public class Controller {
         addPointX.setText(String.valueOf((int) e.getX()));
         addPointY.setText(String.valueOf((int) e.getY()));
 
-        addMarkerOnMap(x, y);
+        if (limit < 2) {
+            addMarkerOnMap(x, y);
+            System.out.println(limit++);
+        }
     }
+
+    //loads data from databaseManager
+    public void loadAll() {
+        DatabaseManager.loadAll();
+    }
+
+    //Helper method to get distance between two points
+//    private int calculateDistance(){
+//        double p1 = Math.pow((this.getEnd().getXCoordinate() - this.getStart().getXCoordinate()), 2);
+//        double p2 = Math.pow((this.getEnd().getYCoordinate() - this.getStart().getYCoordinate()), 2);
+//        double sqrtIn = p1-p2;
+//
+//        if(sqrtIn < 0)
+//            sqrtIn = sqrtIn * -1;
+//
+//        return (int)Math.abs(Math.sqrt(sqrtIn));
+//    }
 }
