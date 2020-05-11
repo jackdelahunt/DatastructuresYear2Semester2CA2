@@ -5,7 +5,11 @@ import java.util.List;
 
 public class Searching {
 
-    static int costOfLast;
+    // cost of last is the cost of the route last found, once you
+    // find a path it then stores the cost instead of having to repeat the
+    // search, this may lead to the wrong cost being displayed eventually
+    // but for now it worked
+    static int costOfLast = 0;
 
     public static <T> List<GraphNode<?>> findPathBreadthFirst(GraphNode<?> startNode, T lookingfor, int totalCost) {
 

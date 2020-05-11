@@ -6,14 +6,14 @@ public class ListManager {
 
     private static ObservableList<GraphNode<?>> nodesList;
 
-    public  static void initialize() {
+    public static void initialize() {
         nodesList = FXCollections.observableArrayList();
     }
 
     public static GraphNode<?> getNodeByName(String name) {
-        for(int i = 0; i < getNodesList().size(); i++){
-            GraphNode<?> graphNode = getNodesList().get(i);
-            if(graphNode.getName().equals(name)){
+        for (int i = 0; i < getNodesList().size(); i++) {
+            GraphNode<?> graphNode = nodesList.get(i);
+            if (graphNode.getName().equals(name)) {
                 return graphNode;
             }
         }

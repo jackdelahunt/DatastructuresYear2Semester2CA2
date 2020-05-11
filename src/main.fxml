@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
         <AnchorPane onMouseClicked="#mapClicked" prefHeight="900.0" prefWidth="800.0" stylesheets="@main.css">
             <children>
@@ -16,6 +20,9 @@
                 <TextField fx:id="addPointX" promptText="X-Coordinate" />
                 <TextField fx:id="addPointY" promptText="Y-Coordinate" />
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
+                <Button fx:id="duoColourButton" mnemonicParsing="false" onAction="#duoColour" text="Black and white image" />
+            <Slider fx:id="duoColourSlider" majorTickUnit="1.0" max="3.0" showTickMarks="true" value="2.62" />
+
             </children>
         </VBox>
     </children>
