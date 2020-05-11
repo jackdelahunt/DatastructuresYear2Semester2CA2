@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Controller {
@@ -56,31 +57,67 @@ public class Controller {
         }
     }
 
-    public ArrayList<GraphNode<?>> createGraphNodesFromImage(){
-        ArrayList<GraphNode<?>> nodes = new ArrayList<>();
+    public GraphNode[] createGraphNodesFromImage() {
+
+        // this array is all nodes that are made from the image
+        // no matter the colour
+        // --each pixel is one node
+        GraphNode[] nodes = new GraphNode[(int) (imageView.getImage().getWidth() * imageView.getImage().getHeight())];
+
         PixelReader pixelReader = imageView.getImage().getPixelReader();
 
         // nested for loop to go through each pixel in the image
         for (int i = 0; i < imageView.getImage().getHeight(); i++) {
             for (int j = 0; j < imageView.getImage().getWidth(); j++) {
 
-                // if the pixel is white then create a node from that pixel
-                // and add it to the nodes array
-                if(pixelReader.getColor(i, j).equals(Color.WHITE)){
-                    nodes.add(new GraphNode<>("Path", i, j));
+                // creating the node to add to the array,
+                // Path is just used as a place holder
+                if (pixelReader.getColor(i, j).equals(Color.WHITE)) {
+                    nodes[i * j] = new GraphNode<Integer>("Path", i, j);
+                    nodes[i * j].setData(nodes[i * j].hashCode());
                 }
 
             }
         }
-        System.out.println(nodes.size());
         return nodes;
     }
 
-    
+    public GraphNode[] createEdgesBetweenNodesFromImage(GraphNode[] nodes) {
+
+        for (int i = 0; i < nodes.length; i++) {
+
+            // if this is a black pixel then just skip it
+            // this works well with TRIPLE nested if statement below
+            if (nodes[i] == null)
+                continue;
+
+            // checking the node to the right
+            // if the pixel is not last in column this will execute
+            if ((i + 1) % (int) imageView.getImage().getWidth() != 0) {
+                if (i + 1 < nodes.length) {
+                    if (nodes[i + 1] != null) {
+
+                        // no need to check for colour as the only colour left is
+                        // white, connect to the node on your right -  undirected
+                        nodes[i].connectToNodeUndirected(nodes[i + 1], 1);
+                    }
+                }
+            }
+
+            // checking the node underneath this node
+            // if the pixel is not last in row this will execute
+            if (!(i + imageView.getImage().getWidth() >= nodes.length)) {
+                if (nodes[i + (int) imageView.getImage().getWidth()] != null) { //make sure its not white
+                    nodes[i].connectToNodeUndirected(nodes[i + (int) imageView.getImage().getWidth()], 1);
+                }
+            }
+
+        }
+        return nodes;
+    }
+
 
     public void duoColour() {
-
-        System.out.println(agendaList.size());
 
         // creates a writable image from the image that is currently in the image view
         WritableImage writableImage = new WritableImage(
@@ -116,6 +153,55 @@ public class Controller {
 
         // returns the new black and white image to use
         imageView.setImage(writableImage);
+
+
+    }
+
+    // temp point coords for now
+    private int xPoint1 = -1;
+    private int xPoint2 = -1;
+    private int  yPoint1 = -1;
+    private int  yPoint2 = -1;
+
+    // this will be called every time a point is added
+    // if the two points are selected then it will start the search
+    public void findPathBetweenTwoSelectedPoints(int x, int y) {
+
+        // this is what will make the point1 set be assigned first then point2 set
+        // if there is only one point set so far then it will stop the method from
+        // searching with these default values ^^, because that would be stupid
+        if(xPoint1 == -1){
+            xPoint1 = x;
+            yPoint1 = y;
+            return;
+        } else{
+            xPoint2 = x;
+            yPoint2 = y;
+        }
+
+        // nodes created from the current image
+        GraphNode[] nodes = createEdgesBetweenNodesFromImage(createGraphNodesFromImage());
+
+        GraphNode start = null;
+        GraphNode end = null;
+
+        // will go through each node to find what node was pressed
+        // it will then assign to start and end node where appropriate
+        for(GraphNode node : nodes){
+
+            if(node == null)
+                continue;
+
+            if(node.getxCoordinate() == xPoint1 && node.getyCoordinate() == yPoint1){
+                start = node;
+            } else if(node.getxCoordinate() == xPoint2 && node.getyCoordinate() == yPoint2) {
+                end = node;
+            }
+        }
+
+        System.out.println("[ " + xPoint1 + ", " + yPoint1 + " ]");
+        System.out.println("[ " + xPoint2 + ", " + yPoint2 + " ]");
+
     }
 
     //Adds icons(buttons) to cultural node position on the map
@@ -189,7 +275,15 @@ public class Controller {
             // print the limit and then add one
             System.out.println(limit++);
         }
+
+        findPathBetweenTwoSelectedPoints(x, y);
     }
+
+
+
+
+
+
 
     //loads data from databaseManager
     public void loadAll() {
