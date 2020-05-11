@@ -36,6 +36,7 @@ public class Controller {
         loadAll();
         addCulturalNodesOnMap();
 
+
         // this is used so when editing the image we
         // can use the original image instead of the
         // already edited image
@@ -55,7 +56,31 @@ public class Controller {
         }
     }
 
+    public ArrayList<GraphNode<?>> createGraphNodesFromImage(){
+        ArrayList<GraphNode<?>> nodes = new ArrayList<>();
+        PixelReader pixelReader = imageView.getImage().getPixelReader();
+
+        // nested for loop to go through each pixel in the image
+        for (int i = 0; i < imageView.getImage().getHeight(); i++) {
+            for (int j = 0; j < imageView.getImage().getWidth(); j++) {
+
+                // if the pixel is white then create a node from that pixel
+                // and add it to the nodes array
+                if(pixelReader.getColor(i, j).equals(Color.WHITE)){
+                    nodes.add(new GraphNode<>("Path", i, j));
+                }
+
+            }
+        }
+        System.out.println(nodes.size());
+        return nodes;
+    }
+
+    
+
     public void duoColour() {
+
+        System.out.println(agendaList.size());
 
         // creates a writable image from the image that is currently in the image view
         WritableImage writableImage = new WritableImage(
@@ -68,8 +93,6 @@ public class Controller {
 
         // used to read the values from an image
         PixelReader pixelReader = writableImage.getPixelReader();
-
-        System.out.println(duoColourSlider.getValue());
 
         // nested for loop to go through each pixel in the image
         for (int i = 0; i < writableImage.getHeight(); i++) {
@@ -152,6 +175,7 @@ public class Controller {
     }
 
     public void mapClicked(MouseEvent e) {
+
         // gets the coords of the mouse
         int x = (int) e.getX();
         int y = (int) e.getY();
