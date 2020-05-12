@@ -27,6 +27,11 @@ public class Controller {
     private Image startImage;
 
     private static File file;
+
+    // just used an array instead of having four ints
+    // 0 -> x1, 1 -> y1, 2 -> x2, 3 -> y2
+    private int[] pointCoordinates = new int[4];
+
     public static ArrayList<GraphNode<?>> agendaList = new ArrayList<>();
     int limit = 0;
 
@@ -57,56 +62,12 @@ public class Controller {
     }
 
     public void convertImageToBlackAndWhite() {
+        // using start image so the image remains true to the ------------¬
+        // original image and is not distorted by multiple                |
+        // iterations on black/white conversion                           v
         imageView.setImage(ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue()));
     }
 
-
-    // temp point coords for now
-    private int xPoint1 = -1;
-    private int xPoint2 = -1;
-    private int yPoint1 = -1;
-    private int yPoint2 = -1;
-
-    // this will be called every time a point is added
-    // if the two points are selected then it will start the search
-    public void findPathBetweenTwoSelectedPoints(int x, int y) {
-
-        // this is what will make the point1 set be assigned first then point2 set
-        // if there is only one point set so far then it will stop the method from
-        // searching with these default values ^^, because that would be stupid
-        if (xPoint1 == -1) {
-            xPoint1 = x;
-            yPoint1 = y;
-            return;
-        } else {
-            xPoint2 = x;
-            yPoint2 = y;
-        }
-
-        // nodes created from the current image
-        GraphNode[] nodes = ImageProcessor.createEdgesBetweenNodesFromImage(imageView.getImage(), ImageProcessor.createGraphNodesFromBlackAndWhiteImage(imageView.getImage()));
-
-        GraphNode start = null;
-        GraphNode end = null;
-
-        // will go through each node to find what node was pressed
-        // it will then assign to start and end node where appropriate
-        for (GraphNode node : nodes) {
-
-            if (node == null)
-                continue;
-
-            if (node.getxCoordinate() == xPoint1 && node.getyCoordinate() == yPoint1) {
-                start = node;
-            } else if (node.getxCoordinate() == xPoint2 && node.getyCoordinate() == yPoint2) {
-                end = node;
-            }
-        }
-
-        System.out.println("[ " + xPoint1 + ", " + yPoint1 + " ]");
-        System.out.println("[ " + xPoint2 + ", " + yPoint2 + " ]");
-
-    }
 
     //Adds icons(buttons) to cultural node position on the map
     public void addCulturalNodesOnMap() {
@@ -176,11 +137,23 @@ public class Controller {
         // if the start and end points have not been placed yet
         if (limit < 2) {
             addMarkerOnMap(x, y);
-            // print the limit and then add one
             System.out.println(limit++);
-        }
 
-        findPathBetweenTwoSelectedPoints(x, y);
+            // this stores the value of mouse x & y based on if the
+            // first two values are the default int value - 0
+            // if the first point is the default then set the values to the
+            // next two points
+            if (pointCoordinates[0] == 0){
+                pointCoordinates[0] = x;
+                pointCoordinates[1] = y;
+            } else {
+                pointCoordinates[2] = x;
+                pointCoordinates[3] = y;
+            }
+
+            System.out.println(pointCoordinates[0] + ", " + pointCoordinates[1]);
+            System.out.println(pointCoordinates[2] + ", " + pointCoordinates[3]);
+        }
     }
 
 
