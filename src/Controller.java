@@ -11,7 +11,6 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Controller {
@@ -57,111 +56,16 @@ public class Controller {
         }
     }
 
-    public GraphNode[] createGraphNodesFromImage() {
-
-        // this array is all nodes that are made from the image
-        // no matter the colour
-        // --each pixel is one node
-        GraphNode[] nodes = new GraphNode[(int) (imageView.getImage().getWidth() * imageView.getImage().getHeight())];
-
-        PixelReader pixelReader = imageView.getImage().getPixelReader();
-
-        // nested for loop to go through each pixel in the image
-        for (int i = 0; i < imageView.getImage().getHeight(); i++) {
-            for (int j = 0; j < imageView.getImage().getWidth(); j++) {
-
-                // creating the node to add to the array,
-                // Path is just used as a place holder
-                if (pixelReader.getColor(i, j).equals(Color.WHITE)) {
-                    nodes[i * j] = new GraphNode<Integer>("Path", i, j);
-                    nodes[i * j].setData(nodes[i * j].hashCode());
-                }
-
-            }
-        }
-        return nodes;
+    public void convertImageToBlackAndWhite() {
+        imageView.setImage(ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue()));
     }
 
-    public GraphNode[] createEdgesBetweenNodesFromImage(GraphNode[] nodes) {
-
-        for (int i = 0; i < nodes.length; i++) {
-
-            // if this is a black pixel then just skip it
-            // this works well with TRIPLE nested if statement below
-            if (nodes[i] == null)
-                continue;
-
-            // checking the node to the right
-            // if the pixel is not last in column this will execute
-            if ((i + 1) % (int) imageView.getImage().getWidth() != 0) {
-                if (i + 1 < nodes.length) {
-                    if (nodes[i + 1] != null) {
-
-                        // no need to check for colour as the only colour left is
-                        // white, connect to the node on your right -  undirected
-                        nodes[i].connectToNodeUndirected(nodes[i + 1], 1);
-                    }
-                }
-            }
-
-            // checking the node underneath this node
-            // if the pixel is not last in row this will execute
-            if (!(i + imageView.getImage().getWidth() >= nodes.length)) {
-                if (nodes[i + (int) imageView.getImage().getWidth()] != null) { //make sure its not white
-                    nodes[i].connectToNodeUndirected(nodes[i + (int) imageView.getImage().getWidth()], 1);
-                }
-            }
-
-        }
-        return nodes;
-    }
-
-
-    public void duoColour() {
-
-        // creates a writable image from the image that is currently in the image view
-        WritableImage writableImage = new WritableImage(
-                startImage.getPixelReader(),
-                (int) startImage.getWidth(),
-                (int) startImage.getHeight());
-
-        // used to change the colours on a writable image
-        PixelWriter pixelWriter = writableImage.getPixelWriter();
-
-        // used to read the values from an image
-        PixelReader pixelReader = writableImage.getPixelReader();
-
-        // nested for loop to go through each pixel in the image
-        for (int i = 0; i < writableImage.getHeight(); i++) {
-            for (int j = 0; j < writableImage.getWidth(); j++) {
-
-                // gets the colour of the current pixel and sets it to
-                // a value between 0 - 3
-                Color c = pixelReader.getColor(j, i);
-                double colourSum = c.getRed() + c.getBlue() + c.getGreen();
-
-                // if the total colour is above a certain value then it
-                // is probably close enough to white so it
-                // should be set to white, else it should be black
-                if (colourSum > duoColourSlider.getValue()) {
-                    pixelWriter.setColor(j, i, Color.WHITE);
-                } else {
-                    pixelWriter.setColor(j, i, Color.BLACK);
-                }
-            }
-        }
-
-        // returns the new black and white image to use
-        imageView.setImage(writableImage);
-
-
-    }
 
     // temp point coords for now
     private int xPoint1 = -1;
     private int xPoint2 = -1;
-    private int  yPoint1 = -1;
-    private int  yPoint2 = -1;
+    private int yPoint1 = -1;
+    private int yPoint2 = -1;
 
     // this will be called every time a point is added
     // if the two points are selected then it will start the search
@@ -170,31 +74,31 @@ public class Controller {
         // this is what will make the point1 set be assigned first then point2 set
         // if there is only one point set so far then it will stop the method from
         // searching with these default values ^^, because that would be stupid
-        if(xPoint1 == -1){
+        if (xPoint1 == -1) {
             xPoint1 = x;
             yPoint1 = y;
             return;
-        } else{
+        } else {
             xPoint2 = x;
             yPoint2 = y;
         }
 
         // nodes created from the current image
-        GraphNode[] nodes = createEdgesBetweenNodesFromImage(createGraphNodesFromImage());
+        GraphNode[] nodes = ImageProcessor.createEdgesBetweenNodesFromImage(imageView.getImage(), ImageProcessor.createGraphNodesFromBlackAndWhiteImage(imageView.getImage()));
 
         GraphNode start = null;
         GraphNode end = null;
 
         // will go through each node to find what node was pressed
         // it will then assign to start and end node where appropriate
-        for(GraphNode node : nodes){
+        for (GraphNode node : nodes) {
 
-            if(node == null)
+            if (node == null)
                 continue;
 
-            if(node.getxCoordinate() == xPoint1 && node.getyCoordinate() == yPoint1){
+            if (node.getxCoordinate() == xPoint1 && node.getyCoordinate() == yPoint1) {
                 start = node;
-            } else if(node.getxCoordinate() == xPoint2 && node.getyCoordinate() == yPoint2) {
+            } else if (node.getxCoordinate() == xPoint2 && node.getyCoordinate() == yPoint2) {
                 end = node;
             }
         }
@@ -278,11 +182,6 @@ public class Controller {
 
         findPathBetweenTwoSelectedPoints(x, y);
     }
-
-
-
-
-
 
 
     //loads data from databaseManager

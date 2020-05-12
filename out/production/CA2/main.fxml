@@ -20,7 +20,7 @@
                 <TextField fx:id="addPointX" promptText="X-Coordinate" />
                 <TextField fx:id="addPointY" promptText="Y-Coordinate" />
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
-                <Button fx:id="duoColourButton" mnemonicParsing="false" onAction="#duoColour" text="Black and white image" />
+                <Button fx:id="duoColourButton" mnemonicParsing="false" onAction="#convertImageToBlackAndWhite" text="Black and white image" />
             <Slider fx:id="duoColourSlider" majorTickUnit="1.0" max="3.0" showTickMarks="true" value="2.62" />
 
             </children>
