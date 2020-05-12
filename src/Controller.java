@@ -72,14 +72,14 @@ public class Controller {
 
     public void findPathBetweenSelectedPoints() {
         // setting up the data to get the start and end node
-        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(imageView.getImage(), duoColourSlider.getValue());
+        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue());
         GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
         GraphNode<Color>[] nodesWithEdges = ImageProcessor.createEdgesBetweenNodesFromImage(blackWhiteImage, nodes);
         GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
         GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
 
         // perform the search and print the cost
-        Searching.findPathBreadthFirst(start, end, 0);
+        imageView.setImage(ImageProcessor.drawPathOnImage(startImage, Searching.findPathBreadthFirst(start, end, 0)));
         System.out.println(Searching.costOfLast);
     }
 
@@ -110,6 +110,11 @@ public class Controller {
         System.out.println("Data after retrieving node based on points selected:");
         System.out.println("Start: (Colour) " + start.getData().toString() + " [" + start.getxCoordinate() + ", " + start.getyCoordinate() + "]");
         System.out.println("End: (Colour) " + end.getData().toString() + " [" + end.getxCoordinate() + ", " + end.getyCoordinate() + "]");
+    }
+
+    public void resetValueOfPoints() {
+        limit = 0;
+        pointCoordinates = new int[4];
     }
 
 
@@ -166,7 +171,7 @@ public class Controller {
         markerBtn.setTranslateY(y - radius);
 
         // adds the new button to the image view
-        ((Pane) imageView.getParent()).getChildren().add(markerBtn);
+        //((Pane) imageView.getParent()).getChildren().add(markerBtn);
     }
 
     public void mapClicked(MouseEvent e) {

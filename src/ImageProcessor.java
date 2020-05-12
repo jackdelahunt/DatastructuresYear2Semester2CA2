@@ -4,6 +4,8 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.List;
+
 public class ImageProcessor {
 
     /**
@@ -13,7 +15,7 @@ public class ImageProcessor {
      * @param threshold the threshold for a single pixel to be considered white
      * @return the new black and white image
      */
-    public static WritableImage convertImageToBlackAndWhite(Image image, double threshold) {
+    public static Image convertImageToBlackAndWhite(Image image, double threshold) {
 
         // creates a writable image from the image that is currently in the image view
         WritableImage writableImage = new WritableImage(
@@ -146,6 +148,19 @@ public class ImageProcessor {
         return node;
         // validate that this node has the correct coordinates and then return
         //return node.getxCoordinate() == x && node.getyCoordinate() == y ? node : null;
+    }
+
+    public static Image drawPathOnImage(Image image, List<GraphNode<?>> nodes) {
+        WritableImage writableImage = new WritableImage(image.getPixelReader() ,(int)image.getWidth(), (int)image.getHeight());
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        Color pathColour = Color.RED;
+
+        for (GraphNode node : nodes){
+            pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), pathColour);
+        }
+
+        return writableImage;
     }
 
     /**
