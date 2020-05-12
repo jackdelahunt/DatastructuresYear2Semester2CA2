@@ -57,7 +57,7 @@ public class ImageProcessor {
      * @param image the black and white image that the nodes are based off of
      * @return the node array based on the image
      */
-    public static GraphNode[] createGraphNodesFromBlackAndWhiteImage(Image image) {
+    public static GraphNode<Color>[] createGraphNodesFromBlackAndWhiteImage(Image image) {
 
         // this array is all nodes that are made from the image
         // no matter the colour
@@ -65,20 +65,26 @@ public class ImageProcessor {
 
         // if the pixel is white it is then a new node
         // if the pixel is black then it remains null
-        GraphNode[] nodes = new GraphNode[(int) (image.getWidth() * image.getHeight())];
+        GraphNode<Color>[] nodes = new GraphNode[(int) (image.getWidth() * image.getHeight())];
 
         PixelReader pixelReader = image.getPixelReader();
 
         // nested for loop to go through each pixel in the image
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
-                if (pixelReader.getColor(i, j).equals(Color.WHITE)) {
-                    nodes[ (int)((i * image.getWidth()) + j) ] = new GraphNode("PATH", i, j);
-                }
+
+                // Creating a node of type colour with the x and y of the current node
+                // i refers to the y (height) and j refers to the x (width)
+                GraphNode<Color> node = new GraphNode<>("PATH", j, i);
+
+                // giving the node its colour based on it's x and y
+                node.setData(pixelReader.getColor(node.getxCoordinate(), node.getyCoordinate()));
+
+                // setting the correct note in the array to the new node
+                // this converts the 2D coords to work with the 1D array
+                nodes[(int) ((i * image.getWidth()) + j)] = node;
             }
         }
-
-
         return nodes;
     }
 
@@ -121,7 +127,35 @@ public class ImageProcessor {
         }
         return nodes;
     }
-    
+
+    /**
+     * returns a node based on the place where the mouse clicked from the node array
+     * based on the image
+     *
+     * @param image the image that the node array is created from
+     * @param x     the x of mouse when clicked
+     * @param y     the y of the mouse when clicked
+     * @param nodes the node array that is created from the image
+     * @return the node that matched the location of the mouse click
+     */
+    public static GraphNode<Color> getNodesBasedOnMouseCoordinates(Image image, int x, int y, GraphNode<Color>[] nodes) {
+
+        // gets the node that should have that x and y
+        GraphNode<Color> node = nodes[(int) ((y * image.getWidth()) + x)];
+
+        return node;
+        // validate that this node has the correct coordinates and then return
+        //return node.getxCoordinate() == x && node.getyCoordinate() == y ? node : null;
+    }
+
+    /**
+     * *****************
+     * *****************
+     * These last two methods are for debugging the functions above will be removed
+     * ****************
+     * *****************
+     */
+
     // used for debugging
     public static void printAllColoursFromImage(Image image) {
         PixelReader pixelReader = image.getPixelReader();

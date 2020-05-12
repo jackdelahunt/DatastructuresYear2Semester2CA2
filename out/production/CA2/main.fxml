@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -22,8 +23,10 @@
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
                 <Button fx:id="duoColourButton" mnemonicParsing="false" onAction="#convertImageToBlackAndWhite" text="Black and white image" />
             <Slider fx:id="duoColourSlider" majorTickUnit="1.0" max="3.0" showTickMarks="true" value="2.62" />
+            <Button mnemonicParsing="false" onAction="#getValueOfSelectedPoints" text="Debug" />
 
             </children>
         </VBox>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" />
     </children>
 </HBox>

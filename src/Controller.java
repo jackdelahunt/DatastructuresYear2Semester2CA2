@@ -12,6 +12,7 @@ import javafx.stage.Window;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.PrimitiveIterator;
 
 
 public class Controller {
@@ -74,12 +75,29 @@ public class Controller {
         // original image and is not distorted by multiple                |
         // iterations on black/white conversion                           v
         imageView.setImage(ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue()));
-
-        //ImageProcessor.printAllColoursFromImage(imageView.getImage());
-        ImageProcessor.printColoursFromNodeArray(imageView.getImage(), ImageProcessor.createGraphNodesFromBlackAndWhiteImage(imageView.getImage()));
     }
 
+    public void getValueOfSelectedPoints() {
 
+        // get the nodes based on the black and white image
+        GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(imageView.getImage());
+
+        // get the start node based on the mouse coords
+        GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(imageView.getImage(), pointCoordinates[0], pointCoordinates[1], nodes);
+        GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(imageView.getImage(), pointCoordinates[2], pointCoordinates[3], nodes);
+
+        // print the data of the mouse clicks
+        System.out.println("Coordinates of the points selected:");
+        System.out.println("Start: [" + pointCoordinates[0] + ", " + pointCoordinates[1] + "]");
+        System.out.println("Start: [" + pointCoordinates[1] + ", " + pointCoordinates[2] + "]");
+
+        System.out.println();
+
+        // print the colour and x, y of the node
+        System.out.println("Data after retrieving node based on points selected:");
+        System.out.println("Start: (Colour) " + start.getData().toString() + " [" + start.getxCoordinate() + ", " + start.getyCoordinate() + "]");
+        System.out.println("End: (Colour) " + end.getData().toString() + " [" + end.getxCoordinate() + ", " + end.getyCoordinate() + "]");
+    }
 
 
     //Adds icons(buttons) to cultural node position on the map
@@ -150,7 +168,7 @@ public class Controller {
         // if the start and end points have not been placed yet
         if (limit < 2) {
             addMarkerOnMap(x, y);
-            System.out.println(limit++);
+            limit++;
 
             // this stores the value of mouse x & y based on if the
             // first two values are the default int value - 0
@@ -163,9 +181,6 @@ public class Controller {
                 pointCoordinates[2] = x;
                 pointCoordinates[3] = y;
             }
-
-            System.out.println(pointCoordinates[0] + ", " + pointCoordinates[1]);
-            System.out.println(pointCoordinates[2] + ", " + pointCoordinates[3]);
         }
     }
 
