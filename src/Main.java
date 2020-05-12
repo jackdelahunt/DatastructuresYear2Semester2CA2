@@ -28,30 +28,6 @@ public class Main extends Application {
 
     public static void test() {
 
-        GraphNode<String> a = new GraphNode<>("Cherry");
-        GraphNode<String> b = new GraphNode<>("Apple");
-        GraphNode<String> c = new GraphNode<>("Plum");
-        GraphNode<String> d = new GraphNode<>("Mango");
-        GraphNode<String> e = new GraphNode<>("Kiwi");
-        GraphNode<String> f = new GraphNode<>("Coconut");
-        GraphNode<String> g = new GraphNode<>("Pear");
-        GraphNode<String> h = new GraphNode<>("Orange");
-
-        a.connectToNodeDirected(b, 1);
-        b.connectToNodeDirected(c, 6);
-        c.connectToNodeDirected(d, 2);
-        d.connectToNodeDirected(e, 5);
-        e.connectToNodeDirected(f, 2);
-        f.connectToNodeDirected(g, 3);
-        g.connectToNodeDirected(h, 6);
-
-        ArrayList<GraphNode<?>> agenda = new ArrayList<>();
-        agenda.add(a);
-
-        List<GraphNode<?>> bfsPath = Searching.findPathBreadthFirst(a, "Plum", 0);
-        for (GraphNode<?> n : bfsPath) System.out.println(n.getData());
-        System.out.println(Searching.costOfLast);
-
         //Commented code does exact same as above but for the cultural node objects
         //the commented code in Searching is for this to work.
 

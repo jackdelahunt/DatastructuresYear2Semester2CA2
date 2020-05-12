@@ -95,39 +95,35 @@ public class ImageProcessor {
      * @param nodes the array of nodes that will get the edges
      * @return the array of nodes but with the edge data
      */
-    public static GraphNode<Color>[] createEdgesBetweenNodesFromImage(Image image, GraphNode<Color>[] nodes) {
-
-        int count = 1;
+    public static GraphNode[] createEdgesBetweenNodesFromImage(Image image, GraphNode[] nodes) {
 
         for (int i = 0; i < nodes.length; i++) {
-            // just to make things look cleaner
-            // using this instead of nodes[i] everywhere
-            GraphNode<Color> node = nodes[i];
 
-            // if this is a black pixel then just skip this iteration
-            if (node.getData().equals(Color.BLACK))
+            // if this is a black pixel then just skip it
+            // this works well with TRIPLE nested if statement below
+            if (nodes[i] == null)
                 continue;
 
-            // this handles the node to the right
-            // if this is last node in the array then dont check right
-            if (i + 1 != nodes.length) {
-                if (nodes.length / count != image.getWidth()) {
-                    GraphNode<Color> rightNode = nodes[i + 1];
-                    if (rightNode.getData().equals(Color.WHITE)) {
-                        node.connectToNodeUndirected(rightNode, 1);
+            // checking the node to the right
+            // if the pixel is not last in column this will execute
+            if ((i + 1) % (int) image.getWidth() != 0) {
+                if (i + 1 < nodes.length) {
+                    if (nodes[i + 1] != null) {
+
+                        // no need to check for colour as the only colour left is
+                        // white, connect to the node on your right -  undirected
+                        nodes[i].connectToNodeUndirected(nodes[i + 1], 1);
                     }
                 }
             }
 
-            // this handles the node underneath
-            // if the node is on the last row do not check below
-            if ( nodes.length - i > image.getWidth() ) {
-                GraphNode<Color> underNode = nodes[i + (int)image.getWidth()];
-                if (underNode.getData().equals(Color.WHITE)){
-                    node.connectToNodeUndirected(underNode, 1);
+            // checking the node underneath this node
+            // if the pixel is not last in row this will execute
+            if (!(i + image.getWidth() >= nodes.length)) {
+                if (nodes[i + (int) image.getWidth()] != null) { //make sure its not white
+                    nodes[i].connectToNodeUndirected(nodes[i + (int) image.getWidth()], 1);
                 }
             }
-            count++;
         }
         return nodes;
     }
@@ -155,7 +151,7 @@ public class ImageProcessor {
     /**
      * *****************
      * *****************
-     * These last two methods are for debugging the functions above, will be removed
+     * These last two methods are for debugging the functions above will be removed
      * ****************
      * *****************
      */

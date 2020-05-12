@@ -64,10 +64,23 @@ public class Controller {
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 800, imageWidth = 800;
+            int imageHeight = 32, imageWidth = 32;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
+    }
+
+    public void findPathBetweenSelectedPoints() {
+        // setting up the data to get the start and end node
+        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(imageView.getImage(), duoColourSlider.getValue());
+        GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
+        GraphNode<Color>[] nodesWithEdges = ImageProcessor.createEdgesBetweenNodesFromImage(blackWhiteImage, nodes);
+        GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
+        GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
+
+        // perform the search and print the cost
+        Searching.findPathBreadthFirst(start, end, 0);
+        System.out.println(Searching.costOfLast);
     }
 
     public void convertImageToBlackAndWhite() {
