@@ -63,7 +63,7 @@ public class Controller {
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 64, imageWidth = 64;
+            int imageHeight = 800, imageWidth = 800;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
@@ -75,7 +75,8 @@ public class Controller {
         // iterations on black/white conversion                           v
         imageView.setImage(ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue()));
 
-        ImageProcessor.printAllColoursFromImage(imageView.getImage());
+        //ImageProcessor.printAllColoursFromImage(imageView.getImage());
+        ImageProcessor.printColoursFromNodeArray(imageView.getImage(), ImageProcessor.createGraphNodesFromBlackAndWhiteImage(imageView.getImage()));
     }
 
 

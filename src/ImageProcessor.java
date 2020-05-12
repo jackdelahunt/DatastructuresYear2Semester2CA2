@@ -28,8 +28,8 @@ public class ImageProcessor {
         PixelReader pixelReader = writableImage.getPixelReader();
 
         // nested for loop to go through each pixel in the image
-        for (int i = 0; i < writableImage.getWidth(); i++) {
-            for (int j = 0; j < writableImage.getHeight(); j++) {
+        for (int i = 0; i < writableImage.getHeight(); i++) {
+            for (int j = 0; j < writableImage.getWidth(); j++) {
 
                 // gets the colour of the current pixel and sets it to
                 // a value between 0 - 3
@@ -72,15 +72,13 @@ public class ImageProcessor {
         // nested for loop to go through each pixel in the image
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
-
-                // creating the node to add to the array,
-                // Path is just used as a place holder
                 if (pixelReader.getColor(i, j).equals(Color.WHITE)) {
-                    nodes[i * j] = new GraphNode<Integer>("Path", i, j);
-                    nodes[i * j].setData(nodes[i * j].hashCode());
+                    nodes[ (int)((i * image.getWidth()) + j) ] = new GraphNode("PATH", i, j);
                 }
             }
         }
+
+
         return nodes;
     }
 
@@ -123,19 +121,42 @@ public class ImageProcessor {
         }
         return nodes;
     }
-
+    
+    // used for debugging
     public static void printAllColoursFromImage(Image image) {
         PixelReader pixelReader = image.getPixelReader();
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
-                if (pixelReader.getColor(i, j).equals( Color.WHITE))
+                if (pixelReader.getColor(i, j).equals(Color.WHITE))
                     System.out.print("W");
                 else
                     System.out.print("B");
 
-                if ( j + 1 == image.getWidth()){
+                if (j + 1 == image.getWidth()) {
                     System.out.println();
                 }
+            }
+        }
+    }
+
+    // used for debugging
+    public static void printColoursFromNodeArray(Image image, GraphNode[] nodes) {
+        PixelReader pixelReader = image.getPixelReader();
+
+        int count = 0;
+
+        for (GraphNode node : nodes) {
+
+            if (node == null)
+                System.out.print("\u0080");
+            else
+                System.out.print("N");
+
+            count++;
+
+            if (count + 1 == image.getWidth()) {
+                System.out.println();
+                count = 0;
             }
         }
     }
