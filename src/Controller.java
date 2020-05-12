@@ -64,7 +64,7 @@ public class Controller {
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 32, imageWidth = 32;
+            int imageHeight = 800, imageWidth = 800;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
