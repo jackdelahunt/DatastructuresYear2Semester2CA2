@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -50,12 +51,19 @@ public class Controller {
 
     public void fileChooser() {
         FileChooser fc = new FileChooser();
+
+        // creates a reference to the images dir in the project
+        File imagesFolder = new File("images/");
+
+        // sets the start directory to the images folder
+        fc.setInitialDirectory(imagesFolder);
+
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.jfif", "*.gif"));
         file = fc.showOpenDialog(null);
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 800, imageWidth = 800;
+            int imageHeight = 64, imageWidth = 64;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
@@ -66,7 +74,11 @@ public class Controller {
         // original image and is not distorted by multiple                |
         // iterations on black/white conversion                           v
         imageView.setImage(ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue()));
+
+        ImageProcessor.printAllColoursFromImage(imageView.getImage());
     }
+
+
 
 
     //Adds icons(buttons) to cultural node position on the map
@@ -143,7 +155,7 @@ public class Controller {
             // first two values are the default int value - 0
             // if the first point is the default then set the values to the
             // next two points
-            if (pointCoordinates[0] == 0){
+            if (pointCoordinates[0] == 0) {
                 pointCoordinates[0] = x;
                 pointCoordinates[1] = y;
             } else {

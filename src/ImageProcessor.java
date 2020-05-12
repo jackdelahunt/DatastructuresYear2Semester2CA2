@@ -7,8 +7,9 @@ import javafx.scene.paint.Color;
 public class ImageProcessor {
 
     /**
-     used to create a black and white image from an existing image
-     * @param image the image that you want to convert
+     * used to create a black and white image from an existing image
+     *
+     * @param image     the image that you want to convert
      * @param threshold the threshold for a single pixel to be considered white
      * @return the new black and white image
      */
@@ -27,21 +28,21 @@ public class ImageProcessor {
         PixelReader pixelReader = writableImage.getPixelReader();
 
         // nested for loop to go through each pixel in the image
-        for (int i = 0; i < writableImage.getHeight(); i++) {
-            for (int j = 0; j < writableImage.getWidth(); j++) {
+        for (int i = 0; i < writableImage.getWidth(); i++) {
+            for (int j = 0; j < writableImage.getHeight(); j++) {
 
                 // gets the colour of the current pixel and sets it to
                 // a value between 0 - 3
-                Color c = pixelReader.getColor(j, i);
+                Color c = pixelReader.getColor(i, j);
                 double colourSum = c.getRed() + c.getBlue() + c.getGreen();
 
                 // if the total colour is above a certain value then it
                 // is probably close enough to white so it
                 // should be set to white, else it should be black
                 if (colourSum > threshold) {
-                    pixelWriter.setColor(j, i, Color.WHITE);
+                    pixelWriter.setColor(i, j, Color.WHITE);
                 } else {
-                    pixelWriter.setColor(j, i, Color.BLACK);
+                    pixelWriter.setColor(i, j, Color.BLACK);
                 }
             }
         }
@@ -52,6 +53,7 @@ public class ImageProcessor {
 
     /**
      * creates an array of graph nodes based on a back and white image
+     *
      * @param image the black and white image that the nodes are based off of
      * @return the node array based on the image
      */
@@ -84,6 +86,7 @@ public class ImageProcessor {
 
     /**
      * adds the edges to each node based on their position in the image
+     *
      * @param image the image that the nodes are based off of
      * @param nodes the array of nodes that will get the edges
      * @return the array of nodes but with the edge data
@@ -119,6 +122,22 @@ public class ImageProcessor {
             }
         }
         return nodes;
+    }
+
+    public static void printAllColoursFromImage(Image image) {
+        PixelReader pixelReader = image.getPixelReader();
+        for (int i = 0; i < image.getWidth(); i++) {
+            for (int j = 0; j < image.getHeight(); j++) {
+                if (pixelReader.getColor(i, j).equals( Color.WHITE))
+                    System.out.print("W");
+                else
+                    System.out.print("B");
+
+                if ( j + 1 == image.getWidth()){
+                    System.out.println();
+                }
+            }
+        }
     }
 
 }
