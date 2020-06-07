@@ -64,7 +64,7 @@ public class Controller {
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 800, imageWidth = 800;
+            int imageHeight = 400, imageWidth = 400;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
@@ -79,8 +79,10 @@ public class Controller {
         GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
 
         // perform the search and print the cost
-        imageView.setImage(ImageProcessor.drawPathOnImage(startImage, Searching.findPathBreadthFirst(start, end, 0)));
-        System.out.println(Searching.costOfLast);
+        //imageView.setImage(ImageProcessor.drawPathOnImage(startImage, Searching.findPathBreadthFirst(start, end, 0)));
+        //System.out.println(Searching.costOfLast);
+        Searching<Color> searching = new Searching<>();
+        searching.BFS(start, end);
     }
 
     public void convertImageToBlackAndWhite() {
@@ -99,15 +101,8 @@ public class Controller {
         GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(imageView.getImage(), pointCoordinates[0], pointCoordinates[1], nodes);
         GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(imageView.getImage(), pointCoordinates[2], pointCoordinates[3], nodes);
 
-        // print the data of the mouse clicks
-        System.out.println("Coordinates of the points selected:");
-        System.out.println("Start: [" + pointCoordinates[0] + ", " + pointCoordinates[1] + "]");
-        System.out.println("Start: [" + pointCoordinates[1] + ", " + pointCoordinates[2] + "]");
-
-        System.out.println();
-
         // print the colour and x, y of the node
-        System.out.println("Data after retrieving node based on points selected:");
+        System.out.println("Selected node data: ");
         System.out.println("Start: (Colour) " + start.getData().toString() + " [" + start.getxCoordinate() + ", " + start.getyCoordinate() + "]");
         System.out.println("End: (Colour) " + end.getData().toString() + " [" + end.getxCoordinate() + ", " + end.getyCoordinate() + "]");
     }

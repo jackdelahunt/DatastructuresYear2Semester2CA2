@@ -27,26 +27,39 @@ public class Main extends Application {
     }
 
     public static void test() {
+        Searching<String> searching = new Searching<>();
+        GraphNode<String> a = new GraphNode<>("A");
+        GraphNode<String> b = new GraphNode<>("B");
+        GraphNode<String> c = new GraphNode<>("C");
+        GraphNode<String> d = new GraphNode<>("D");
+        GraphNode<String> e = new GraphNode<>("E");
 
-        //Commented code does exact same as above but for the cultural node objects
-        //the commented code in Searching is for this to work.
+        GraphNode<String> one = new GraphNode<>("1");
+        GraphNode<String> two = new GraphNode<>("2");
+        GraphNode<String> three = new GraphNode<>("3");
+        GraphNode<String> four = new GraphNode<>("4");
+        GraphNode<String> five = new GraphNode<>("5");
+        GraphNode<String> six = new GraphNode<>("6");
+        GraphNode<String> seven = new GraphNode<>("7");
+        GraphNode<String> eight = new GraphNode<>("8");
 
-//        GraphNode<?> aa = new GraphNode<>("Vatican City", 230, 390);
-//        GraphNode<?> bb = new GraphNode<>("Engelsburg", 340, 420);
-//        GraphNode<?> cc = new GraphNode<>("Colosseum", 590, 645);
-//        GraphNode<?> dd = new GraphNode<>("Trevi Fountain", 490, 450);
-//        GraphNode<?> ee = new GraphNode<>("People's Square", 430, 275);
-//
-//        aa.connectToNodeDirected(bb, 1);
-//        bb.connectToNodeDirected(cc, 6);
-//        cc.connectToNodeDirected(dd, 2);
-//        dd.connectToNodeDirected(ee, 5);
-//
-//        ArrayList<GraphNode<?>> agenda2 = new ArrayList<>();
-//        agenda.add(aa);
-//
-//        List<GraphNode<?>> bfsPath2 = Searching.findPathBreadthFirst(aa, ee, 0);
-//        for (GraphNode<?> nn : bfsPath2) System.out.println(nn.toString());
-//        System.out.println("Cost of path: " + Searching.costOfLast);
+        a.connectToNodeUndirected(b, 1);
+        b.connectToNodeUndirected(c, 1);
+        c.connectToNodeUndirected(d, 1);
+        d.connectToNodeUndirected(e, 1);
+
+        a.connectToNodeUndirected(one, 1);
+        one.connectToNodeUndirected(two, 1);
+        three.connectToNodeUndirected(e, 1);
+        three.connectToNodeUndirected(four, 0);
+        four.connectToNodeUndirected(five, 0);
+        five.connectToNodeUndirected(six, 0);
+        five.connectToNodeUndirected(seven, 0);
+        six.connectToNodeUndirected(eight, 0);
+        seven.connectToNodeUndirected(eight, 0);
+
+        one.connectToNodeUndirected(six, 0);
+
+        //searching.BFS(a, eight);
     }
 }

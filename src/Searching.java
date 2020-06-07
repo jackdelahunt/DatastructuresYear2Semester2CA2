@@ -1,102 +1,48 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import javafx.scene.paint.Color;
 
-public class Searching {
+import java.util.*;
 
-    // cost of last is the cost of the route last found, once you
-    // find a path it then stores the cost instead of having to repeat the
-    // search, this may lead to the wrong cost being displayed eventually
-    // but for now it worked
-    static int costOfLast = 0;
+public class Searching <E> {
 
-    public static <T> List<GraphNode<?>> findPathBreadthFirst(GraphNode<?> startNode, GraphNode<?> endNode, int totalCost) {
+    public void BFS(GraphNode<E> start, GraphNode<E> end) {
 
-        costOfLast = totalCost;
+        // this is the queue of the nodes to look at
+        Queue<GraphNode<E>> nodeQueue = new LinkedList<>();
 
-        List<List<GraphNode<?>>> agenda = new ArrayList<>(); //Agenda comprised of path lists here!
-        List<GraphNode<?>> firstAgendaPath = new ArrayList<>(), resultPath;
-        firstAgendaPath.add(startNode);
-        agenda.add(firstAgendaPath);
-        resultPath = findPathBreadthFirst(agenda, null, endNode); //Get single BFS path (will be shortest)
-        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
-        return resultPath;
-    }
+        // set of nodes seen so far
+        Set<GraphNode<E>> seen = new HashSet<>();
 
-    public static <T> List<GraphNode<?>> findPathBreadthFirst(List<List<GraphNode<?>>> agenda, List<GraphNode<?>> encountered, GraphNode<?> endNode) {
-        if (agenda.isEmpty()) return null; //Search failed
-        List<GraphNode<?>> nextPath = agenda.remove(0); //Get first item (next path to consider) off agenda
-        GraphNode<?> currentNode = nextPath.get(0); //The first item in the next path is the current node
+        Map<GraphNode<E>, GraphNode<E>> map = new HashMap<>();
 
-        System.out.println(currentNode.getxCoordinate() + " : " + currentNode.getyCoordinate());
-        if (currentNode.equals(endNode)) {
-            return nextPath; //If that's the goal, we've found our path (so return it)
-        }
-        if (encountered == null)
-            encountered = new ArrayList<>(); //First node considered in search so create new (empty) encountered list
-        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
+        nodeQueue.add(start);
 
-        List<GraphEdge> currentAdjList = currentNode.getAdjList();
-        List<GraphNode<?>> adjNodes = new ArrayList<>();
+        while(!nodeQueue.isEmpty()){
+            GraphNode<E> currentNode = nodeQueue.poll();
 
-        for (GraphEdge edge : currentAdjList)
-            adjNodes.add(edge.getDestinationNode());
-
-        for (int i = 0; i < adjNodes.size(); i++)
-            if (!encountered.contains(adjNodes.get(i))) { //If it hasn't already been encountered
-                List<GraphNode<?>> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of
-
-                costOfLast += currentAdjList.get(i).getCost();
-
-                newPath.add(0, adjNodes.get(i)); //And add the adjacent node to the front of the new copy
-                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
+            if(!seen.contains(currentNode)) {
+                seen.add(currentNode);
             }
-        return findPathBreadthFirst(agenda, encountered, endNode); //Tail call
+
+            if(currentNode.equals(end)){
+                break;
+            }
+
+            for(GraphEdge edge : currentNode.getAdjList()){
+                GraphNode<E> nextNode  = (GraphNode<E>) edge.getDestinationNode();
+                if(!seen.contains(nextNode)){
+                    nodeQueue.add(nextNode);
+                    map.put(nextNode, currentNode);
+                }
+            }
+        }
+        printMap(map, start, end);
     }
 
-    //Adjusted above method to work for the cultural nodes
-
-//    public static <T> List<GraphNode<?>> findPathBreadthFirst(GraphNode<?> startNode, GraphNode<?> destinationNode, int totalCost) {
-//
-//        costOfLast = totalCost;
-//
-//        List<List<GraphNode<?>>> agenda = new ArrayList<>(); //Agenda comprised of path lists here!
-//        List<GraphNode<?>> firstAgendaPath = new ArrayList<>(), resultPath;
-//        firstAgendaPath.add(startNode);
-//        agenda.add(firstAgendaPath);
-//        resultPath = findPathBreadthFirst(agenda, null, destinationNode); //Get single BFS path (will be shortest)
-//        Collections.reverse(resultPath); //Reverse path (currently has the goal node as the first item)
-//        return resultPath;
-//    }
-//
-//    public static <T> List<GraphNode<?>> findPathBreadthFirst(List<List<GraphNode<?>>> agenda, List<GraphNode<?>> encountered, GraphNode<?> destinationNode) {
-//        if (agenda.isEmpty()) return null; //Search failed
-//        List<GraphNode<?>> nextPath = agenda.remove(0); //Get first item (next path to consider) off agenda
-//        GraphNode<?> currentNode = nextPath.get(0); //The first item in the next path is the current node
-//
-//        if (currentNode.equals(destinationNode)) {
-//            return nextPath; //If that's the goal, we've found our path (so return it)
-//        }
-//        if (encountered == null)
-//            encountered = new ArrayList<>(); //First node considered in search so create new (empty) encountered list
-//        encountered.add(currentNode); //Record current node as encountered so it isn't revisited again
-//
-//        List<GraphEdge> currentAdjList = currentNode.getAdjList();
-//        List<GraphNode<?>> adjNodes = new ArrayList<>();
-//
-//        for (GraphEdge edge : currentAdjList)
-//            adjNodes.add(edge.getDestinationNode());
-//
-//        for (int i = 0; i < adjNodes.size(); i++)
-//            if (!encountered.contains(adjNodes.get(i))) { //If it hasn't already been encountered
-//                List<GraphNode<?>> newPath = new ArrayList<>(nextPath); //Create a new path list as a copy of
-//
-//                costOfLast += currentAdjList.get(i).getCost();
-//
-//                newPath.add(0, adjNodes.get(i)); //And add the adjacent node to the front of the new copy
-//                agenda.add(newPath); //Add the new path to the end of agenda (end->BFS!)
-//            }
-//        return findPathBreadthFirst(agenda, encountered, destinationNode); //Tail call
-//    }
+    private void printMap(Map<GraphNode<E>, GraphNode<E>> map, GraphNode<E> start, GraphNode<E> end) {
+        GraphNode<E> currentNode = end;
+        while(!currentNode.equals(start)){
+            System.out.println(currentNode.getxCoordinate() + " : " + currentNode.getyCoordinate());
+            currentNode = map.get(currentNode);
+        }
+    }
 }

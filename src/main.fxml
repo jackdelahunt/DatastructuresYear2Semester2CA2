@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
     <children>
-        <AnchorPane onMouseClicked="#mapClicked" prefHeight="900.0" prefWidth="800.0" stylesheets="@main.css">
+        <AnchorPane onMouseClicked="#mapClicked" prefHeight="900.0" prefWidth="400.0" stylesheets="@main.css">
             <children>
-                <ImageView fx:id="imageView" fitHeight="800.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="400.0" layoutX="166.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
             </children></AnchorPane>
         <VBox prefHeight="800.0" prefWidth="261.0">
             <children>
@@ -23,8 +18,8 @@
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
                 <Button fx:id="duoColourButton" mnemonicParsing="false" onAction="#convertImageToBlackAndWhite" text="Black and white image" />
             <Slider fx:id="duoColourSlider" majorTickUnit="1.0" max="3.0" showTickMarks="true" value="2.62" />
-            <Button mnemonicParsing="false" onAction="#getValueOfSelectedPoints" text="Debug" />
-            <Button mnemonicParsing="false" onAction="#findPathBetweenSelectedPoints" text="Build Path" />
+            <Button mnemonicParsing="false" onAction="#getValueOfSelectedPoints" text="Print selected points data" />
+            <Button mnemonicParsing="false" onAction="#findPathBetweenSelectedPoints" text="Generate and show path" />
             <Button mnemonicParsing="false" onAction="#resetValueOfPoints" text="Reset Points" />
 
             </children>
