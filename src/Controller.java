@@ -78,11 +78,10 @@ public class Controller {
         GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
         GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
 
+        Searching searching = new Searching<>();
+
         // perform the search and print the cost
-        //imageView.setImage(ImageProcessor.drawPathOnImage(startImage, Searching.findPathBreadthFirst(start, end, 0)));
-        //System.out.println(Searching.costOfLast);
-        Searching<Color> searching = new Searching<>();
-        searching.BFS(start, end);
+        imageView.setImage(ImageProcessor.drawPathOnImage(startImage, searching.BFS(start, end)));
     }
 
     public void convertImageToBlackAndWhite() {

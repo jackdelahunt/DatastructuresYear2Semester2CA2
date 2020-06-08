@@ -174,8 +174,7 @@ public class ImageProcessor {
     // used for debugging
     public static void printAllColoursFromImage(Image image) {
         PixelReader pixelReader = image.getPixelReader();
-        for (int i = 0; i < image.getWidth(); i++) {
-            for (int j = 0; j < image.getHeight(); j++) {
+        for (int i = 0; i < image.getWidth(); i++) {            for (int j = 0; j < image.getHeight(); j++) {
                 if (pixelReader.getColor(i, j).equals(Color.WHITE))
                     System.out.print("W");
                 else

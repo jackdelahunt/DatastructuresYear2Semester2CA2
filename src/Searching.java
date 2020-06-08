@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Searching <E> {
 
-    public void BFS(GraphNode<E> start, GraphNode<E> end) {
+    public List<GraphNode<E>> BFS(GraphNode<E> start, GraphNode<E> end) {
 
         // this is the queue of the nodes to look at
         Queue<GraphNode<E>> nodeQueue = new LinkedList<>();
@@ -35,14 +35,16 @@ public class Searching <E> {
                 }
             }
         }
-        printMap(map, start, end);
+        return getNodeListFromMap(map, start, end);
     }
 
-    private void printMap(Map<GraphNode<E>, GraphNode<E>> map, GraphNode<E> start, GraphNode<E> end) {
+    private List<GraphNode<E>> getNodeListFromMap(Map<GraphNode<E>, GraphNode<E>> map, GraphNode<E> start, GraphNode<E> end) {
         GraphNode<E> currentNode = end;
+        List<GraphNode<E>> nodeList = new ArrayList<>();
         while(!currentNode.equals(start)){
-            System.out.println(currentNode.getxCoordinate() + " : " + currentNode.getyCoordinate());
+            nodeList.add(currentNode);
             currentNode = map.get(currentNode);
         }
+        return nodeList;
     }
 }
