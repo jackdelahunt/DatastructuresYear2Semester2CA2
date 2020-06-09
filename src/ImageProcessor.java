@@ -75,6 +75,11 @@ public class ImageProcessor {
         for (int i = 0; i < image.getHeight(); i++) {
             for (int j = 0; j < image.getWidth(); j++) {
 
+                // if this pixel is black do not create a new node
+                if(pixelReader.getColor(j, i).equals(Color.BLACK)) {
+                    continue;
+                }
+
                 // Creating a node of type colour with the x and y of the current node
                 // i refers to the y (height) and j refers to the x (width)
                 GraphNode<Color> node = new GraphNode<>("PATH", j, i);

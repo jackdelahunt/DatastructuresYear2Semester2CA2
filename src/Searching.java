@@ -17,6 +17,7 @@ public class Searching <E> {
         nodeQueue.add(start);
 
         while(!nodeQueue.isEmpty()){
+            System.out.println(nodeQueue.size());
             GraphNode<E> currentNode = nodeQueue.poll();
 
             if(!seen.contains(currentNode)) {

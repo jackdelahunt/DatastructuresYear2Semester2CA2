@@ -75,6 +75,9 @@ public class Controller {
         Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue());
         GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
         GraphNode<Color>[] nodesWithEdges = ImageProcessor.createEdgesBetweenNodesFromImage(blackWhiteImage, nodes);
+        System.out.println(nodesWithEdges.length);
+        if(nodesWithEdges.length > 0)
+            return;
         GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
         GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
 
