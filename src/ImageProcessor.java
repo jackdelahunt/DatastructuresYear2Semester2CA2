@@ -4,6 +4,8 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImageProcessor {
@@ -127,7 +129,7 @@ public class ImageProcessor {
             // checking the node underneath this node
             // if the pixel is not last in row this will execute
             if (!(i + image.getWidth() >= nodes.length)) {
-                if (nodes[i + (int) image.getWidth()] != null) { //make sure its not white
+                if (nodes[i + (int) image.getWidth()] != null) { // make sure its not black
                     nodes[i].connectToNodeUndirected(nodes[i + (int) image.getWidth()], 1);
                 }
             }
@@ -148,11 +150,7 @@ public class ImageProcessor {
     public static GraphNode<Color> getNodesBasedOnMouseCoordinates(Image image, int x, int y, GraphNode<Color>[] nodes) {
 
         // gets the node that should have that x and y
-        GraphNode<Color> node = nodes[(int) ((y * image.getWidth()) + x)];
-
-        return node;
-        // validate that this node has the correct coordinates and then return
-        //return node.getxCoordinate() == x && node.getyCoordinate() == y ? node : null;
+        return nodes[(int) ((y * image.getWidth()) + x)];
     }
 
     public static Image drawPathOnImage(Image image, List<GraphNode<?>> nodes) {

@@ -6,6 +6,11 @@ public class Searching <E> {
 
     public List<GraphNode<E>> BFS(GraphNode<E> start, GraphNode<E> end) {
 
+        if(start == null || end == null){
+            System.out.println("Black pixel picked");
+            return null;
+        }
+
         // this is the queue of the nodes to look at
         Queue<GraphNode<E>> nodeQueue = new LinkedList<>();
 
@@ -17,12 +22,7 @@ public class Searching <E> {
         nodeQueue.add(start);
 
         while(!nodeQueue.isEmpty()){
-            System.out.println(nodeQueue.size());
             GraphNode<E> currentNode = nodeQueue.poll();
-
-            if(!seen.contains(currentNode)) {
-                seen.add(currentNode);
-            }
 
             if(currentNode.equals(end)){
                 break;
@@ -31,6 +31,7 @@ public class Searching <E> {
             for(GraphEdge edge : currentNode.getAdjList()){
                 GraphNode<E> nextNode  = (GraphNode<E>) edge.getDestinationNode();
                 if(!seen.contains(nextNode)){
+                    seen.add(nextNode);
                     nodeQueue.add(nextNode);
                     map.put(nextNode, currentNode);
                 }
