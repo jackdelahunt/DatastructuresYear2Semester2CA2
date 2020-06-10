@@ -72,11 +72,21 @@ public class Controller {
 
     public void findPathBetweenSelectedPoints() {
         // setting up the data to get the start and end node
+
+        // turn the start image to black and white
         Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue());
+
+        // get the nodes based on the map with their edges
         GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
-        GraphNode<Color>[] nodesWithEdges = ImageProcessor.createEdgesBetweenNodesFromImage(blackWhiteImage, nodes);
+
+        // get the start nodes based on the first mouse click
         GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
+
+        // get the end nodes based on the second mouse click
         GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
+
+        // creating the searching object that the draw path on image will use
+        // converted searching to non-static as it was easier to work with using the generics
         Searching searching = new Searching<>();
 
         // perform the search and print the cost
@@ -167,7 +177,7 @@ public class Controller {
         markerBtn.setTranslateY(y - radius);
 
         // adds the new button to the image view
-        //((Pane) imageView.getParent()).getChildren().add(markerBtn);
+        ((Pane) imageView.getParent()).getChildren().add(markerBtn);
     }
 
     public void mapClicked(MouseEvent e) {

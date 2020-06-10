@@ -94,7 +94,7 @@ public class ImageProcessor {
                 nodes[(int) ((i * image.getWidth()) + j)] = node;
             }
         }
-        return nodes;
+        return createEdgesBetweenNodesFromImage(image, nodes);
     }
 
     /**
@@ -104,7 +104,7 @@ public class ImageProcessor {
      * @param nodes the array of nodes that will get the edges
      * @return the array of nodes but with the edge data
      */
-    public static GraphNode[] createEdgesBetweenNodesFromImage(Image image, GraphNode[] nodes) {
+    private static GraphNode[] createEdgesBetweenNodesFromImage(Image image, GraphNode[] nodes) {
 
         for (int i = 0; i < nodes.length; i++) {
 
