@@ -23,9 +23,6 @@ public class Controller {
     @FXML
     private TextField nodeName, addPointX, addPointY;
 
-    @FXML
-    private Slider duoColourSlider;
-
     private Image startImage;
 
     private static File file;
@@ -73,8 +70,8 @@ public class Controller {
     public void findPathBetweenSelectedPoints() {
         // setting up the data to get the start and end node
 
-        // turn the start image to black and white
-        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue());
+        // turn the start image to black and white based on the slider (may change to a const)
+        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(startImage, 2.62);
 
         // get the nodes based on the map with their edges
         GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
@@ -91,13 +88,6 @@ public class Controller {
 
         // perform the search and print the cost
         imageView.setImage(ImageProcessor.drawPathOnImage(startImage, searching.BFS(start, end)));
-    }
-
-    public void convertImageToBlackAndWhite() {
-        // using start image so the image remains true to the ------------¬
-        // original image and is not distorted by multiple                |
-        // iterations on black/white conversion                           v
-        imageView.setImage(ImageProcessor.convertImageToBlackAndWhite(startImage, duoColourSlider.getValue()));
     }
 
     public void getValueOfSelectedPoints() {
