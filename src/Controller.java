@@ -64,7 +64,7 @@ public class Controller {
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 400, imageWidth = 400;
+            int imageHeight = 800, imageWidth = 800;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
@@ -105,9 +105,12 @@ public class Controller {
         System.out.println("End: (Colour) " + end.getData().toString() + " [" + end.getxCoordinate() + ", " + end.getyCoordinate() + "]");
     }
 
-    public void resetValueOfPoints() {
+    // called by the reset map button,
+    // reset the points selected and sets the image view to the original image
+    public void resetMap() {
         limit = 0;
         pointCoordinates = new int[4];
+        imageView.setImage(startImage);
     }
 
 
