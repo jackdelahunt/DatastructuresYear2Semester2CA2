@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +14,6 @@
                 <TextField fx:id="nodeName" promptText="Name" />
                 <TextField fx:id="addPointX" promptText="X-Coordinate" />
                 <TextField fx:id="addPointY" promptText="Y-Coordinate" />
-            <Slider fx:id="duoColourSlider" majorTickUnit="1.0" max="3.0" showTickMarks="true" value="2.62" />
             <Button mnemonicParsing="false" onAction="#findPathBetweenSelectedPoints" prefHeight="25.0" prefWidth="157.0" text="Generate and show path" />
             <Button mnemonicParsing="false" onAction="#getValueOfSelectedPoints" prefHeight="25.0" prefWidth="158.0" text="Print selected points data" />
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
