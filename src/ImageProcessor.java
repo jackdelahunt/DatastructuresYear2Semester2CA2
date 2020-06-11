@@ -160,6 +160,7 @@ public class ImageProcessor {
         Color pathColour = Color.RED;
 
         for (GraphNode node : nodes){
+            pathColour = pathColour.deriveColor(1.1, 1, 1, 1);
             pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), pathColour);
         }
 
