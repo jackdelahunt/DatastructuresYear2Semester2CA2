@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.*;
@@ -17,14 +18,23 @@ import java.util.PrimitiveIterator;
 
 public class Controller {
 
+    // this is the image view the image is stored in
     @FXML
     private ImageView imageView;
 
+    // the label that shows loading, generating etc.
+    @FXML
+    private Label contextLabel;
+
+    // these are some text fields that show the data about the selected points
     @FXML
     private TextField nodeName, addPointX, addPointY;
 
-    private Image startImage;
+    // this is the image that is loaded on at the start and is used
+    // when changing the image as this does not have alterations
+    private Image rawImage;
 
+    // file that contains the image
     private static File file;
 
     // just used an array instead of having four ints
@@ -44,7 +54,7 @@ public class Controller {
         // this is used so when editing the image we
         // can use the original image instead of the
         // already edited image
-        startImage = imageView.getImage();
+        rawImage = imageView.getImage();
     }
 
     public void fileChooser() {
@@ -68,10 +78,10 @@ public class Controller {
     }
 
     public void findPathBetweenSelectedPoints() {
-        // setting up the data to get the start and end node
 
+        // setting up the data to get the start and end node
         // turn the start image to black and white based on the slider (may change to a const)
-        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(startImage, 2.62);
+        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(rawImage, 2.62);
 
         // get the nodes based on the map with their edges
         GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
@@ -87,7 +97,10 @@ public class Controller {
         Searching searching = new Searching<>();
 
         // perform the search and print the cost
-        imageView.setImage(ImageProcessor.drawPathOnImage(startImage, searching.BFS(start, end)));
+        imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end)));
+
+        // reset the label
+        contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
     }
 
     public void getValueOfSelectedPoints() {
@@ -110,7 +123,8 @@ public class Controller {
     public void resetMap() {
         limit = 0;
         pointCoordinates = new int[4];
-        imageView.setImage(startImage);
+        imageView.setImage(rawImage);
+        contextLabel.setText("");
     }
 
 

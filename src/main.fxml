@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,6 +19,7 @@
             <Button mnemonicParsing="false" onAction="#getValueOfSelectedPoints" prefHeight="25.0" prefWidth="158.0" text="Print selected points data" />
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" text="Add marker (Doesn't do anything yet)" />
             <Button mnemonicParsing="false" onAction="#resetMap" prefHeight="25.0" prefWidth="155.0" text="Reset Map" />
+            <Label fx:id="contextLabel" text="__________________" />
          </children>
       </VBox>
       <VBox prefHeight="800.0" prefWidth="12.0" />
