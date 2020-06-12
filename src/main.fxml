@@ -23,7 +23,7 @@
             <Label fx:id="contextLabel" textFill="WHITE" />
             <Label fx:id="contextLabel1" layoutX="13.0" layoutY="215.0" text="Path Settings" textFill="WHITE" />
             <TextField fx:id="pathColourField" styleClass="textFields" stylesheets="@main.css" text="#ff0000" />
-            <CheckBox fx:id="isPathFabulous" mnemonicParsing="false" text="Rainbow Road" />
+            <CheckBox fx:id="isPathFabulous" mnemonicParsing="false" styleClass="pathCheckBox" stylesheets="@main.css" text="Rainbow Road" />
          </children>
       </VBox>
       <VBox prefHeight="800.0" prefWidth="12.0" />
