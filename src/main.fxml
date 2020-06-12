@@ -18,7 +18,6 @@
                 <TextField fx:id="addPointX" promptText="X-Coordinate" styleClass="textFields" stylesheets="@main.css" />
                 <TextField fx:id="addPointY" promptText="Y-Coordinate" styleClass="textFields" stylesheets="@main.css" />
             <Button mnemonicParsing="false" onAction="#findPathBetweenSelectedPoints" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Generate and show path" />
-            <Button mnemonicParsing="false" onAction="#getValueOfSelectedPoints" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Print selected points data" />
                 <Button fx:id="addMarkerBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Add marker" />
             <Button mnemonicParsing="false" onAction="#resetMap" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Reset Map" />
             <Label fx:id="contextLabel" textFill="WHITE" />

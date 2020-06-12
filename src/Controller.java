@@ -75,44 +75,40 @@ public class Controller {
     }
 
     public void findPathBetweenSelectedPoints() {
-        
-        // setting up the data to get the start and end node
-        // turn the start image to black and white based on the slider (may change to a const)
-        Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(rawImage, 2.62);
 
-        // get the nodes based on the map with their edges
-        GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
+        try {
 
-        // get the start nodes based on the first mouse click
-        GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
+            // setting up the data to get the start and end node
+            // turn the start image to black and white based on the slider (may change to a const)
+            Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(rawImage, 2.62);
 
-        // get the end nodes based on the second mouse click
-        GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
+            // get the nodes based on the map with their edges
+            GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
 
-        // creating the searching object that the draw path on image will use
-        // converted searching to non-static as it was easier to work with using the generics
-        Searching searching = new Searching<>();
+            // get the start nodes based on the first mouse click
+            GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
 
-        // perform the search and print the cost
-        imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
+            // get the end nodes based on the second mouse click
+            GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
 
-        // tell the user what happened in the label
-        contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
-    }
+            // creating the searching object that the draw path on image will use
+            // converted searching to non-static as it was easier to work with using the generics
+            Searching searching = new Searching<>();
 
-    public void getValueOfSelectedPoints() {
+            // perform the search and print the cost
+            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
 
-        // get the nodes based on the black and white image
-        GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(imageView.getImage());
+            // tell the user what happened in the label
+            contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
 
-        // get the start node based on the mouse coords
-        GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(imageView.getImage(), pointCoordinates[0], pointCoordinates[1], nodes);
-        GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(imageView.getImage(), pointCoordinates[2], pointCoordinates[3], nodes);
+            if(e.getMessage() == null)
+                contextLabel.setText("The path cannot be found, Try again Later");
+            else if (e.getMessage().equals("Invalid color specification"))
+                contextLabel.setText("Try a new colour like: #00ff00");
 
-        // print the colour and x, y of the node
-        System.out.println("Selected node data: ");
-        System.out.println("Start: (Colour) " + start.getData().toString() + " [" + start.getxCoordinate() + ", " + start.getyCoordinate() + "]");
-        System.out.println("End: (Colour) " + end.getData().toString() + " [" + end.getxCoordinate() + ", " + end.getyCoordinate() + "]");
+        }
     }
 
     // called by the reset map button,

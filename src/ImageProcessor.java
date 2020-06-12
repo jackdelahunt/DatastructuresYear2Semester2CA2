@@ -157,6 +157,8 @@ public class ImageProcessor {
      * sets the pixels on an image along the path in a colour
      * @param image the image that you want to draw the path on
      * @param nodePath a ordered list of the nodes that are the path you want to display
+     * @param colour the colour of the path
+     * @param isPathFabulous no explanation needed
      * @return the image with the path drawn
      */
     public static Image drawPathOnImage(Image image, List<GraphNode<?>> nodePath, Color colour, boolean isPathFabulous) {
