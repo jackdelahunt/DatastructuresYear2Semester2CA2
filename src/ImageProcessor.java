@@ -165,15 +165,20 @@ public class ImageProcessor {
         WritableImage writableImage = new WritableImage(image.getPixelReader() ,(int)image.getWidth(), (int)image.getHeight());
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 
-        // this is here so if the colour the user entered is black or white,
-        // the hue shift would not work so just set it to a color that will work
-        if(isPathFabulous)
+        // this if else may seem stupid but it fixed the problem of having a if inside
+        // a single for each loop which was annoying
+        if(isPathFabulous) {
+            // this is here so if the colour the user entered is black or white,
+            // the hue shift would not work so just set it to a color that will work
             colour = Color.RED;
-
-        for (GraphNode node : nodePath){
-            if (isPathFabulous)
+            for(GraphNode node : nodePath) {
                 colour = colour.deriveColor(1.1, 1, 1, 1);
-            pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), colour);
+                pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), colour);
+            }
+        } else {
+            for(GraphNode node : nodePath) {
+                pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), colour);
+            }
         }
 
         return writableImage;
