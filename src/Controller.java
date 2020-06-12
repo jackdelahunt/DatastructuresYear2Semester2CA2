@@ -74,10 +74,9 @@ public class Controller {
         }
     }
 
-    public void findPathBetweenSelectedPoints() {
+    public void findPathBetweenSelectedPoints() throws InterruptedException {
 
         try {
-
             // setting up the data to get the start and end node
             // turn the start image to black and white based on the slider (may change to a const)
             Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(rawImage, 2.62);
@@ -92,15 +91,25 @@ public class Controller {
             GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
 
             // creating the searching object that the draw path on image will use
-            // converted searching to non-static as it was easier to work with using the generics
-            Searching searching = new Searching<>();
+            // searching object is based on the start and end node so threading can be used
+            Searching searching = new Searching(start, end);
+
+            // creates a thread from the searching object
+            Thread bfsThread = new Thread(searching, "Path Finding");
+
+            // start that thread (run the bfs algorithm)
+            bfsThread.start();
+
+            // wait until this thread is done (this will cause a NPE as searching.getPath will not be set yet)
+            bfsThread.join();
+
 
             // perform the search and print the cost
-            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
+            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.getPath(), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
 
             // tell the user what happened in the label
             contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
-        } catch (Exception e) {
+        }  catch (Exception e) {
             System.out.println(e.getMessage());
 
             if(e.getMessage() == null)
