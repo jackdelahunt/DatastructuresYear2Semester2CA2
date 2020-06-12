@@ -1,20 +1,13 @@
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.stage.Window;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.PrimitiveIterator;
-
 
 public class Controller {
 
@@ -26,9 +19,13 @@ public class Controller {
     @FXML
     private Label contextLabel;
 
+    // check box for the path settings
+    @FXML
+    private CheckBox isPathFabulous;
+
     // these are some text fields that show the data about the selected points
     @FXML
-    private TextField nodeName, addPointX, addPointY;
+    private TextField nodeName, addPointX, addPointY, pathColourField;
 
     // this is the image that is loaded on at the start and is used
     // when changing the image as this does not have alterations
@@ -78,7 +75,7 @@ public class Controller {
     }
 
     public void findPathBetweenSelectedPoints() {
-
+        
         // setting up the data to get the start and end node
         // turn the start image to black and white based on the slider (may change to a const)
         Image blackWhiteImage = ImageProcessor.convertImageToBlackAndWhite(rawImage, 2.62);
@@ -97,7 +94,7 @@ public class Controller {
         Searching searching = new Searching<>();
 
         // perform the search and print the cost
-        imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end), Color.RED));
+        imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
 
         // tell the user what happened in the label
         contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
