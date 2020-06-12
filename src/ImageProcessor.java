@@ -153,15 +153,19 @@ public class ImageProcessor {
         return nodes[(int) ((y * image.getWidth()) + x)];
     }
 
-    public static Image drawPathOnImage(Image image, List<GraphNode<?>> nodes) {
+    /**
+     * sets the pixels on an image along the path in a colour
+     * @param image the image that you want to draw the path on
+     * @param nodePath a ordered list of the nodes that are the path you want to display
+     * @return the image with the path drawn
+     */
+    public static Image drawPathOnImage(Image image, List<GraphNode<?>> nodePath, Color colour) {
         WritableImage writableImage = new WritableImage(image.getPixelReader() ,(int)image.getWidth(), (int)image.getHeight());
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 
-        Color pathColour = Color.RED;
-
-        for (GraphNode node : nodes){
-            pathColour = pathColour.deriveColor(1.1, 1, 1, 1);
-            pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), pathColour);
+        for (GraphNode node : nodePath){
+            colour = colour.deriveColor(1.1, 1, 1, 1);
+            pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), colour);
         }
 
         return writableImage;

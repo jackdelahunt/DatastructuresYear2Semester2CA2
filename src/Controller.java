@@ -97,7 +97,7 @@ public class Controller {
         Searching searching = new Searching<>();
 
         // perform the search and print the cost
-        imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end)));
+        imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.BFS(start, end), Color.RED));
 
         // tell the user what happened in the label
         contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
