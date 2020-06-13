@@ -36,10 +36,12 @@ public class Controller {
 
     // just used an array instead of having four ints
     // 0 -> x1, 1 -> y1, 2 -> x2, 3 -> y2
-    private int[] pointCoordinates = new int[4];
+    private ArrayList<Integer> pointCoordinates = new ArrayList<>(4);
 
     public static ArrayList<GraphNode<?>> agendaList = new ArrayList<>();
-    int limit = 0;
+
+    // limiting the amount of points on the map to 10
+    int limit = 10;
 
     public void initialize() {
         fileChooser();
@@ -85,10 +87,10 @@ public class Controller {
             GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
 
             // get the start nodes based on the first mouse click
-            GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[0], pointCoordinates[1], nodes);
+            GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates.get(0), pointCoordinates.get(1), nodes);
 
             // get the end nodes based on the second mouse click
-            GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates[2], pointCoordinates[3], nodes);
+            GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates.get(2), pointCoordinates.get(3), nodes);
 
             // creating the searching object that the draw path on image will use
             // searching object is based on the start and end node so threading can be used
@@ -124,7 +126,7 @@ public class Controller {
     // reset the points selected and sets the image view to the original image
     public void resetMap() {
         limit = 0;
-        pointCoordinates = new int[4];
+        pointCoordinates = new ArrayList<>(4);
         imageView.setImage(rawImage);
         contextLabel.setText("");
     }
@@ -196,20 +198,15 @@ public class Controller {
         addPointY.setText(String.valueOf((int) e.getY()));
 
         // if the start and end points have not been placed yet
-        if (limit < 2) {
+        if (pointCoordinates.size() / 2 < limit) {
             addMarkerOnMap(x, y);
-            limit++;
 
-            // this stores the value of mouse x & y based on if the
-            // first two values are the default int value - 0
-            // if the first point is the default then set the values to the
-            // next two points
-            if (pointCoordinates[0] == 0) {
-                pointCoordinates[0] = x;
-                pointCoordinates[1] = y;
-            } else {
-                pointCoordinates[2] = x;
-                pointCoordinates[3] = y;
+            // add the twp points to the pointco-ordinate array
+            pointCoordinates.add(x);
+            pointCoordinates.add(y);
+
+            for(int num : pointCoordinates) {
+                System.out.println(num);
             }
         }
     }
