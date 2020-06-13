@@ -87,6 +87,7 @@ public class Controller {
             // get the nodes based on the map with their edges
             GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
 
+            // list of all the paths found based on the points selected
             List<List<GraphNode<?>>> bfsPaths = new ArrayList<>();
             for (int i = 0; i < pointCoordinates.size(); i += 2) {
                 if(i + 2 >= pointCoordinates.size()) {
@@ -121,12 +122,12 @@ public class Controller {
             imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, Searching.addNodePaths(bfsPaths), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
 
             }  catch (Exception e) {
-            System.out.println(e.getMessage());
-
             if(e.getMessage() == null)
                 contextLabel.setText("The path cannot be found, Try again Later");
             else if (e.getMessage().equals("Invalid color specification"))
                 contextLabel.setText("Try a new colour like: #00ff00");
+            else
+                contextLabel.setText("Ooops... Something went wrong");
 
         }
     }
