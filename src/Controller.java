@@ -8,6 +8,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -86,32 +87,40 @@ public class Controller {
             // get the nodes based on the map with their edges
             GraphNode<Color>[] nodes = ImageProcessor.createGraphNodesFromBlackAndWhiteImage(blackWhiteImage);
 
-            // get the start nodes based on the first mouse click
-            GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates.get(0), pointCoordinates.get(1), nodes);
+            List<List<GraphNode<?>>> bfsPaths = new ArrayList<>();
+            for (int i = 0; i < pointCoordinates.size(); i += 2) {
+                if(i + 2 >= pointCoordinates.size()) {
+                    continue;
+                }
+                // get the start nodes based on the first mouse click
+                GraphNode<Color> start = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates.get(i), pointCoordinates.get(i + 1), nodes);
 
-            // get the end nodes based on the second mouse click
-            GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates.get(2), pointCoordinates.get(3), nodes);
+                // get the end nodes based on the second mouse click
+                GraphNode<Color> end = ImageProcessor.getNodesBasedOnMouseCoordinates(blackWhiteImage, pointCoordinates.get(i + 2), pointCoordinates.get(i + 3), nodes);
 
-            // creating the searching object that the draw path on image will use
-            // searching object is based on the start and end node so threading can be used
-            Searching searching = new Searching(start, end);
+                // creating the searching object that the draw path on image will use
+                // searching object is based on the start and end node so threading can be used
+                Searching searching = new Searching(start, end);
 
-            // creates a thread from the searching object
-            Thread bfsThread = new Thread(searching, "Path Finding");
+                // creates a thread from the searching object
+                Thread bfsThread = new Thread(searching, "Path Finding");
 
-            // start that thread (run the bfs algorithm)
-            bfsThread.start();
+                // start that thread (run the bfs algorithm)
+                bfsThread.start();
 
-            // wait until this thread is done (this will cause a NPE as searching.getPath will not be set yet)
-            bfsThread.join();
+                // wait until this thread is done (this will cause a NPE as searching.getPath will not be set yet)
+                bfsThread.join();
 
+                // tell the user what happened in the label
+                contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
+
+                bfsPaths.add(searching.getPath());
+            }
 
             // perform the search and print the cost
-            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, searching.getPath(), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
+            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, Searching.addNodePaths(bfsPaths), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
 
-            // tell the user what happened in the label
-            contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
-        }  catch (Exception e) {
+            }  catch (Exception e) {
             System.out.println(e.getMessage());
 
             if(e.getMessage() == null)
@@ -125,7 +134,6 @@ public class Controller {
     // called by the reset map button,
     // reset the points selected and sets the image view to the original image
     public void resetMap() {
-        limit = 0;
         pointCoordinates = new ArrayList<>(4);
         imageView.setImage(rawImage);
         contextLabel.setText("");
@@ -204,10 +212,6 @@ public class Controller {
             // add the twp points to the pointco-ordinate array
             pointCoordinates.add(x);
             pointCoordinates.add(y);
-
-            for(int num : pointCoordinates) {
-                System.out.println(num);
-            }
         }
     }
 

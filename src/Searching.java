@@ -92,11 +92,11 @@ public class Searching <E> implements Runnable{
         return path;
     }
 
-    public static List<GraphNode> addNodePaths (List< List<GraphNode> > paths) {
-        List<GraphNode> finalPath = new ArrayList<>();
+    public static List<GraphNode<?>> addNodePaths (List< List<GraphNode<?>> > paths) {
+        List<GraphNode<?>> finalPath = new ArrayList<>(paths.get(0));
 
-        for (List<GraphNode> path : paths) {
-            finalPath = new ArrayList<>(path);
+        for (int i = 1; i < paths.size(); i++) {
+            finalPath.addAll(paths.get(i));
         }
 
         return finalPath;
