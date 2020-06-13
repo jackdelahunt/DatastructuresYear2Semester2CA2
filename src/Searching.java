@@ -1,5 +1,6 @@
 import java.util.*;
 
+
 public class Searching <E> implements Runnable{
 
     private GraphNode<E> start;
@@ -89,5 +90,15 @@ public class Searching <E> implements Runnable{
 
     public List<GraphNode<E>> getPath() {
         return path;
+    }
+
+    public static List<GraphNode> addNodePaths (List< List<GraphNode> > paths) {
+        List<GraphNode> finalPath = new ArrayList<>();
+
+        for (List<GraphNode> path : paths) {
+            finalPath = new ArrayList<>(path);
+        }
+
+        return finalPath;
     }
 }
