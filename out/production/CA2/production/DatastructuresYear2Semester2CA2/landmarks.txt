@@ -1,5 +1,0 @@
-Vatican City,230,390
-Engelsburg,340,420
-Colosseum,590,645
-Trevi Fountain,490,450
-People's Square,430,275
