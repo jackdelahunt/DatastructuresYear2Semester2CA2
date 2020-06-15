@@ -18,7 +18,7 @@ public class Controller {
 
     // the label that shows loading, generating etc.
     @FXML
-    private Label contextLabel;
+    private Label contextLabel, lengthLabel;
 
     // check box for the path settings
     @FXML
@@ -115,11 +115,16 @@ public class Controller {
                 // tell the user what happened in the label
                 contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
 
+
                 bfsPaths.add(searching.getPath());
             }
 
-            // perform the search and print the cost
-            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, Searching.addNodePaths(bfsPaths), Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
+            // add all the individual paths together as one -> total path
+            List<GraphNode<?>> totalPath = Searching.addNodePaths(bfsPaths);
+            lengthLabel.setText(ImageProcessor.getCostOfPath(totalPath) + "m");
+
+            // perform the search
+            imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, totalPath, Color.web(pathColourField.getText()), isPathFabulous.isSelected()));
 
             }  catch (Exception e) {
             if(e.getMessage() == null)
@@ -138,6 +143,7 @@ public class Controller {
         pointCoordinates = new ArrayList<>(4);
         imageView.setImage(rawImage);
         contextLabel.setText("");
+        lengthLabel.setText("");
     }
 
 

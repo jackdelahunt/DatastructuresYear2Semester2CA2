@@ -183,4 +183,29 @@ public class ImageProcessor {
 
         return writableImage;
     }
+
+    /**
+     * gets the total cost of a path form the start node to the end node
+     * @param path the path that you want to evaluate
+     * @return the cost of the path
+     */
+    public static int getCostOfPath(List<GraphNode<?>> path) {
+
+        if(path.size() <= 1) return 0;
+
+        int cost = 0;
+
+        for(int i = 0; i < path.size() - 1; i++) {
+            GraphNode<?> currentNode = path.get(i);
+            GraphNode<?> nextNode = path.get(i + 1);
+
+            for(GraphEdge adjEdge : currentNode.getAdjList()){
+                if(adjEdge.getDestinationNode().equals(nextNode))
+                    cost += adjEdge.getCost();
+            }
+
+        }
+
+        return cost;
+    }
 }
