@@ -28,8 +28,6 @@
             </Label>
             <CheckBox fx:id="searchType" layoutX="139.0" layoutY="234.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="53.0" text="BFS" />
             <Label layoutX="192.0" layoutY="234.0" text="(Uncheck for Djkstra)" textFill="#bbb2b2" />
-            <CheckBox fx:id="animation" layoutX="139.0" layoutY="133.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="166.0" text="Animation" />
-            <Label layoutX="232.0" layoutY="133.0" text="(This may take awhile)" textFill="#bbb2b2" />
          </children>
     </AnchorPane>
   </children>
