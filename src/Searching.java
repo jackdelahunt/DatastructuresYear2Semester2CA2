@@ -69,8 +69,68 @@ public class Searching <E> {
         path =  getNodeListFromMap(map, start, end);
     }
 
-    public void dijkstra() {
+    /*
+    runs a dijkstra's search on the map to find the shortest path between
+    the start node and the end node
+     */
+    public void dijkstra(GraphNode<E>[] graph) {
 
+        // queue for which node to poll next
+        Queue<GraphNode<E>> queue = new LinkedList<>();
+
+        // shows which nodes are connected
+        Map<GraphNode<E>, GraphNode<E>> previous = new HashMap<>();
+
+        // gets the cost of the node from the start
+        Map<GraphNode<E>, Integer> cost = new HashMap<>();
+
+        // go through each node in the array and set its cost
+        // to infinity
+        for(GraphNode<E> node : graph)
+            cost.put(node, Integer.MAX_VALUE);
+
+        // set the start node cost to 0 as the cost map
+        // is the cost from the start node so it has to be 0
+        cost.put(start, 0);
+
+        // add the start node to the queue as that is where we need
+        // to start from
+        queue.add(start);
+
+        // while our queue is not empty then keep updating costs
+        while(queue.size() != 0){
+
+            // get the next node in the queue and remove it from the queue
+            GraphNode<E> current = queue.poll();
+
+            // go through each edge and test
+            for(GraphEdge edge : current.getAdjList()){
+
+                // this is the node that the current node is connected to
+                // with the current edge we are on
+                GraphNode nextNode = edge.getDestinationNode();
+
+                // cost of the current node to the next node
+                int nextCost = edge.getCost();
+
+                // if the cost form the current node + cost of the connection is less
+                // then the path we already take then update
+                if(cost.get(current) + nextCost < cost.get(nextNode)){
+
+                    // set the new cost of the node
+                    cost.put(nextNode, cost.get(current) + nextCost);
+
+                    // update its connecting node
+                    previous.put(nextNode, current);
+
+                    // add it to the queue as we need to test it's adjacent list
+                    queue.add(nextNode);
+                }
+            }
+        }
+
+        // generate the path from the map we created, same as BFS
+        path = getNodeListFromMap(previous, start, end);
     }
 
     /**
