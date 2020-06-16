@@ -36,7 +36,7 @@
       <VBox prefHeight="800.0" prefWidth="12.0" />
       <AnchorPane onMouseClicked="#mapClicked" prefHeight="800.0" prefWidth="800.0">
          <children>
-                <ImageView fx:id="imageView" fitHeight="800.0" fitWidth="800.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="imageView" fitHeight="800.0" fitWidth="806.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
     </children>
