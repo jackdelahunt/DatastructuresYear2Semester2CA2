@@ -108,7 +108,7 @@ public class MainController {
                 } else {
 
                     // perform the dijkstra search
-                    searching.dijkstra();
+                    searching.dijkstra(nodes);
                 }
 
                 // tell the user what happened in the label
