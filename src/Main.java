@@ -13,15 +13,34 @@ import java.util.List;
 
 public class Main extends Application {
 
+    private static Scene settingsScene;
+    private static Stage settingsStage;
+    private static Parent settingsRoot;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("Rome Route Finder");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+
+        root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+        settingsScene = new Scene(root);
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void openSettingsStage() {
+        settingsStage = new Stage();
+        settingsStage.setTitle("Settings");
+        settingsStage.setScene(settingsScene);
+
+        settingsStage.show();
+    }
+
+    public static void closeSettings() {
+        settingsStage.close();
     }
 }
