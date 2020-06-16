@@ -102,10 +102,13 @@ public class MainController {
                 Searching searching = new Searching(start, end);
 
                 if(Settings.searchType) {
+
                     // perform the BFS search
                     searching.BFS();
                 } else {
 
+                    // perform the dijkstra search
+                    searching.dijkstra();
                 }
 
                 // tell the user what happened in the label

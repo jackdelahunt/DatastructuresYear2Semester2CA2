@@ -69,6 +69,10 @@ public class Searching <E> {
         path =  getNodeListFromMap(map, start, end);
     }
 
+    public void dijkstra() {
+
+    }
+
     /**
      * generates a path based on the start node and end node with the map the BFS method generates
      * @param map the map that is storing the micro-paths between each node (I made this expression up)
