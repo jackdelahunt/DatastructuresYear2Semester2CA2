@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Controller {
+public class MainController {
 
     // this is the image view the image is stored in
     @FXML

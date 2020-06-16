@@ -15,6 +15,7 @@ public class Main extends Application {
 
     private static Scene settingsScene;
     private static Stage settingsStage;
+    private static Parent settingsRoot;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,6 +36,11 @@ public class Main extends Application {
         settingsStage = new Stage();
         settingsStage.setTitle("Settings");
         settingsStage.setScene(settingsScene);
+
         settingsStage.show();
+    }
+
+    public static void closeSettings() {
+        settingsStage.close();
     }
 }

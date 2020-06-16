@@ -26,7 +26,7 @@ public class DatabaseManager {
                     int x = Integer.parseInt(parts[1]);
                     int y = Integer.parseInt(parts[2]);
                     GraphNode<?> node = new GraphNode<>(name, x, y);
-                    Controller.agendaList.add(node);
+                    MainController.agendaList.add(node);
                     System.out.println(node.toString());
                 }
                 reader.close();
