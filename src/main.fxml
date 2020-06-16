@@ -15,18 +15,19 @@
          <children>
             <HBox prefHeight="13.0" prefWidth="250.0">
                <children>
-                  <ToolBar prefHeight="35.0" prefWidth="254.0">
+                  <ToolBar prefHeight="35.0" prefWidth="254.0" stylesheets="@main.css">
                     <items>
-                      <Button mnemonicParsing="false" onAction="#openSettings" text="Settings" />
+                      <Button mnemonicParsing="false" onAction="#openSettings" styleClass="darkButton" stylesheets="@main.css" text="Settings" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Save" />
                     </items>
                   </ToolBar>
                </children></HBox>
                 <TextField fx:id="nodeName" prefWidth="328.0" promptText="Name" styleClass="textFields" stylesheets="@main.css" />
                 <TextField fx:id="addPointX" promptText="X-Coordinate" styleClass="textFields" stylesheets="@main.css" />
                 <TextField fx:id="addPointY" promptText="Y-Coordinate" styleClass="textFields" stylesheets="@main.css" />
-            <Button mnemonicParsing="false" onAction="#findPathBetweenSelectedPoints" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Generate and show path" />
-                <Button fx:id="addMarkerBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Add marker" />
-            <Button mnemonicParsing="false" onAction="#resetMap" prefHeight="27.0" prefWidth="190.0" styleClass="darkButton" stylesheets="@main.css" text="Reset Map" />
+            <Button mnemonicParsing="false" onAction="#findPathBetweenSelectedPoints" prefHeight="27.0" prefWidth="257.0" styleClass="darkButton" stylesheets="@main.css" text="Generate and show path" />
+                <Button fx:id="addMarkerBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="255.0" styleClass="darkButton" stylesheets="@main.css" text="Add marker" />
+            <Button mnemonicParsing="false" onAction="#resetMap" prefHeight="27.0" prefWidth="261.0" styleClass="darkButton" stylesheets="@main.css" text="Reset Map" />
             <Label fx:id="contextLabel11" layoutX="13.0" layoutY="208.0" text="Lenght of the path:" textFill="WHITE" />
             <Label fx:id="lengthLabel" layoutX="13.0" layoutY="269.0" textFill="WHITE" />
             <Label fx:id="contextLabel" textFill="WHITE" />

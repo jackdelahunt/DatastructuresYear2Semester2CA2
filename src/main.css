@@ -43,3 +43,7 @@
 .pathCheckBox {
     -fx-text-fill: white;
 }
+
+.tool-bar {
+    -fx-background-color: #4a4d52;
+}
