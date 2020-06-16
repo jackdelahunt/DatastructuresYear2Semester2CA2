@@ -101,14 +101,12 @@ public class MainController {
                 // searching object is based on the start and end node so threading can be used
                 Searching searching = new Searching(start, end);
 
-                // creates a thread from the searching object
-                Thread bfsThread = new Thread(searching, "Path Finding");
+                if(Settings.searchType) {
+                    // perform the BFS search
+                    searching.BFS();
+                } else {
 
-                // start that thread (run the bfs algorithm)
-                bfsThread.start();
-
-                // wait until this thread is done (this will cause a NPE as searching.getPath will not be set yet)
-                bfsThread.join();
+                }
 
                 // tell the user what happened in the label
                 contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");

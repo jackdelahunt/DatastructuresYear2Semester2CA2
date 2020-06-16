@@ -1,7 +1,7 @@
 import java.util.*;
 
 
-public class Searching <E> implements Runnable{
+public class Searching <E> {
 
     // the node that the path starts at
     private GraphNode<E> start;
@@ -20,18 +20,10 @@ public class Searching <E> implements Runnable{
     }
 
     /*
-    called when the thread is called
-     */
-    @Override
-    public void run() {
-        BFS();
-    }
-
-    /*
     runs the BFS algorithm from the start node to the end node
     and sets the path field to the resulting path found : if any
      */
-    private void BFS() {
+    public void BFS() {
 
         // if either node that is picked is null or generally a black pixel in the b&w image
         // then cancel the BFS and leave path as null
