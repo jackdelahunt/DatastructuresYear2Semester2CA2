@@ -32,8 +32,8 @@ public class ImageProcessor {
         PixelReader pixelReader = writableImage.getPixelReader();
 
         // nested for loop to go through each pixel in the image
-        for (int i = 0; i < writableImage.getHeight(); i++) {
-            for (int j = 0; j < writableImage.getWidth(); j++) {
+        for (int i = 0; i < writableImage.getWidth(); i++) {
+            for (int j = 0; j < writableImage.getHeight(); j++) {
 
                 // gets the colour of the current pixel and sets it to
                 // a value between 0 - 3

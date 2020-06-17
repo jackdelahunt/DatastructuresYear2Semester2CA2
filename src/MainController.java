@@ -69,13 +69,13 @@ public class MainController {
 
         if (file != null) {
             String path = file.toURI().toString();
-            int imageHeight = 800, imageWidth = 800;
+            int imageHeight = 800, imageWidth = 1180;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
         }
     }
 
-    public void findPathBetweenSelectedPoints() throws InterruptedException {
+    public void findPathBetweenSelectedPoints() {
 
         try {
             // setting up the data to get the start and end node
@@ -126,6 +126,7 @@ public class MainController {
             imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, totalPath, Color.web(Settings.pathColour), Settings.isFabulous));
 
             }  catch (Exception e) {
+            System.out.println(e);
             if(e.getMessage() == null)
                 contextLabel.setText("The path cannot be found, Try again Later");
             else if (e.getMessage().equals("Invalid color specification"))
