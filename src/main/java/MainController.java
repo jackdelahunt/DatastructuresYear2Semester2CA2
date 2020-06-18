@@ -51,6 +51,7 @@ public class MainController {
      */
     public void setStartImage() {
         Image startImage = new Image("/images/rome.jpg");
+        System.out.println(startImage.getWidth() + "\n" + startImage.getHeight());
         imageView.setImage(startImage);
     }
 
