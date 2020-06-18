@@ -61,9 +61,13 @@ public class MainController {
         // sets the start directory to the root directory
         fc.setInitialDirectory(new File("/"));
 
+        // sets what type of file will be displayed in the file chooser
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.jfif", "*.gif"));
+
+        // gets the return of the file chooser when displayed
         File imageFile = fc.showOpenDialog(null);
 
+        // if a correct image was selected then set that to the displaying image
         if (imageFile != null) {
             String path = imageFile.toURI().toString();
             int imageHeight = 800, imageWidth = 1180;
