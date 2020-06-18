@@ -12,6 +12,7 @@
 # BlueJ files
 *.ctxt
 
+.gradle/
 .idea/
 
 # Mobile Tools for Java (J2ME)
