@@ -4,9 +4,6 @@ image of a city in a bird's eye view perspective, and the program allows the use
 the map. <br>
 <br>
 An example of a map that is compatible with this software is the following.<br>
-![Rome](images/rome.jpg) <br>
+![Rome](src/main/resources/images/rome.jpg) <br>
 <br>
 <h2> Settings </h2>
-* Path Colour: colour of the path that is drawn in hexadecimal <br>
-* Rainbow Road: Overrides the path colour and changes the colour path while drawing adding a rainbow effect <br>
-* BFS: This selects what search algorithm will be used when finding the path <br>
