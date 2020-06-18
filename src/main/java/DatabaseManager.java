@@ -11,7 +11,7 @@ public class DatabaseManager {
 
     private static void loadListFromTextFile(ObservableList<GraphNode<?>> list) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/landmarks.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("landmarks.txt"));
 
             String line;
 

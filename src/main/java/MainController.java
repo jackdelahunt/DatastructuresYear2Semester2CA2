@@ -1,6 +1,4 @@
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
@@ -43,11 +41,7 @@ public class MainController {
     int limit = 10;
 
     public void initialize() {
-        fileChooser();
-        ListManager.initialize();
-        // loadAll();
-        addCulturalNodesOnMap();
-
+        setStartImage();
 
         // this is used so when editing the image we
         // can use the original image instead of the
@@ -55,14 +49,22 @@ public class MainController {
         rawImage = imageView.getImage();
     }
 
+    /**
+     * gets the default rome image from the resources directory at runtime
+     */
+    public void setStartImage() {
+        Image startImage = new Image("/images/rome.jpg");
+        imageView.setImage(startImage);
+    }
+
     public void fileChooser() {
         FileChooser fc = new FileChooser();
 
         // creates a reference to the images dir in the project
-        File imagesFolder = new File("/");
+        File rootDir = new File("/");
 
         // sets the start directory to the images folder
-        fc.setInitialDirectory(imagesFolder);
+        fc.setInitialDirectory(rootDir);
 
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.jfif", "*.gif"));
         file = fc.showOpenDialog(null);
@@ -149,31 +151,28 @@ public class MainController {
 
     //Adds icons(buttons) to cultural node position on the map
     public void addCulturalNodesOnMap() {
-        if (file != null) {
             int btnSize = 25;
+        Button[] culturalBtns = new Button[agendaList.size()];
 
-            Button[] culturalBtns = new Button[agendaList.size()];
+        for (int i = 0; i < agendaList.size(); i++) {
+            culturalBtns[i] = new Button();
+            culturalBtns[i].getStyleClass().clear();
+            culturalBtns[i].getStyleClass().add("culturalNodeIcon");
+            culturalBtns[i].setMinSize(btnSize, btnSize);
+            culturalBtns[i].setMaxSize(btnSize, btnSize);
+            culturalBtns[i].setPrefSize(btnSize, btnSize);
+            culturalBtns[i].setTranslateX(agendaList.get(i).getxCoordinate());
+            culturalBtns[i].setTranslateY(agendaList.get(i).getyCoordinate());
 
-            for (int i = 0; i < agendaList.size(); i++) {
-                culturalBtns[i] = new Button();
-                culturalBtns[i].getStyleClass().clear();
-                culturalBtns[i].getStyleClass().add("culturalNodeIcon");
-                culturalBtns[i].setMinSize(btnSize, btnSize);
-                culturalBtns[i].setMaxSize(btnSize, btnSize);
-                culturalBtns[i].setPrefSize(btnSize, btnSize);
-                culturalBtns[i].setTranslateX(agendaList.get(i).getxCoordinate());
-                culturalBtns[i].setTranslateY(agendaList.get(i).getyCoordinate());
+            int finalBtnIndex = i;
+            culturalBtns[i].setOnAction(e -> {
+                nodeName.setText(agendaList.get(finalBtnIndex).getName());
+                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getxCoordinate()));
+                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getyCoordinate()));
+            });
 
-                int finalBtnIndex = i;
-                culturalBtns[i].setOnAction(e -> {
-                    nodeName.setText(agendaList.get(finalBtnIndex).getName());
-                    addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getxCoordinate()));
-                    addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getyCoordinate()));
-                });
-
-                ((Pane) imageView.getParent()).getChildren().add(culturalBtns[i]);
-            }
-        } else System.err.println("No Image Selected");
+            ((Pane) imageView.getParent()).getChildren().add(culturalBtns[i]);
+        }
     }
 
     public void addMarkerOnMap(int x, int y) {
