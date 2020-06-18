@@ -28,9 +28,6 @@ public class MainController {
     // when changing the image as this does not have alterations
     private Image rawImage;
 
-    // file that contains the image
-    private static File file;
-
     // just used an array instead of having four ints
     // 0 -> x1, 1 -> y1, 2 -> x2, 3 -> y2
     private ArrayList<Integer> pointCoordinates = new ArrayList<>(4);
@@ -60,20 +57,18 @@ public class MainController {
     public void fileChooser() {
         FileChooser fc = new FileChooser();
 
-        // creates a reference to the images dir in the project
-        File rootDir = new File("/");
-
-        // sets the start directory to the images folder
-        fc.setInitialDirectory(rootDir);
+        // sets the start directory to the root directory
+        fc.setInitialDirectory(new File("/"));
 
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.jfif", "*.gif"));
-        file = fc.showOpenDialog(null);
+        File imageFile = fc.showOpenDialog(null);
 
-        if (file != null) {
-            String path = file.toURI().toString();
+        if (imageFile != null) {
+            String path = imageFile.toURI().toString();
             int imageHeight = 800, imageWidth = 1180;
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
+            rawImage = img;
         }
     }
 
