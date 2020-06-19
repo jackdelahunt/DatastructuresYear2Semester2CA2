@@ -4,7 +4,7 @@ import java.util.List;
 public class GraphNode<E> {
 
     private E data;
-    private int xCoordinate, yCoordinate;
+    private int x, y;
     private String name;
 
     private List<GraphEdge> adjList = new ArrayList<>();
@@ -14,9 +14,9 @@ public class GraphNode<E> {
     }
 
     public GraphNode(String nodeName, int x, int y) {
-        this.setName(nodeName);
-        this.setxCoordinate(x);
-        this.setyCoordinate(y);
+        setName(nodeName);
+        setX(x);
+        setY(y);
     }
 
     public void connectToNodeDirected(GraphNode<?> destNode, int cost) {
@@ -28,20 +28,25 @@ public class GraphNode<E> {
         destNode.adjList.add(new GraphEdge(this, cost));
     }
 
-    public int getxCoordinate() {
-        return xCoordinate;
+    public int getX() {
+        return x;
     }
 
-    public void setxCoordinate(int xCoordinate) {
-        this.xCoordinate = xCoordinate;
+    public void setX(int x) {
+        if (x < 0)
+            return;
+
+        this.x = x;
     }
 
-    public int getyCoordinate() {
-        return yCoordinate;
+    public int getY() {
+        return y;
     }
 
-    public void setyCoordinate(int yCoordinate) {
-        this.yCoordinate = yCoordinate;
+    public void setY(int y) {
+        if (y < 0)
+            return;
+        this.y = y;
     }
 
     public String getName() {
@@ -49,13 +54,14 @@ public class GraphNode<E> {
     }
 
     public void setName(String name) {
+        if (name.length() > 24)
+            return;
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Name: " + name +
-                ", Coordinates: (" + xCoordinate + "," + yCoordinate + ").";
+        return "Name: " + name + ", Coordinates: (" + x + ", " + y + ").";
     }
 
     public E getData() {

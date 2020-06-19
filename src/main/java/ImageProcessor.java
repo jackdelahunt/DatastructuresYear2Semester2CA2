@@ -4,8 +4,6 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ImageProcessor {
@@ -87,7 +85,7 @@ public class ImageProcessor {
                 GraphNode<Color> node = new GraphNode<>("PATH", j, i);
 
                 // giving the node its colour based on it's x and y
-                node.setData(pixelReader.getColor(node.getxCoordinate(), node.getyCoordinate()));
+                node.setData(pixelReader.getColor(node.getX(), node.getY()));
 
                 // setting the correct note in the array to the new node
                 // this converts the 2D coords to work with the 1D array
@@ -173,11 +171,11 @@ public class ImageProcessor {
             colour = Color.RED;
             for(GraphNode node : nodePath) {
                 colour = colour.deriveColor(1.1, 1, 1, 1);
-                pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), colour);
+                pixelWriter.setColor(node.getX(), node.getY(), colour);
             }
         } else {
             for(GraphNode node : nodePath) {
-                pixelWriter.setColor(node.getxCoordinate(), node.getyCoordinate(), colour);
+                pixelWriter.setColor(node.getX(), node.getY(), colour);
             }
         }
 
