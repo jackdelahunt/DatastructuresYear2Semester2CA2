@@ -14,9 +14,9 @@ public class GraphNode<E> {
     }
 
     public GraphNode(String nodeName, int x, int y) {
-        this.setName(nodeName);
-        this.setxCoordinate(x);
-        this.setyCoordinate(y);
+        setName(nodeName);
+        setxCoordinate(x);
+        setyCoordinate(y);
     }
 
     public void connectToNodeDirected(GraphNode<?> destNode, int cost) {
@@ -33,6 +33,9 @@ public class GraphNode<E> {
     }
 
     public void setxCoordinate(int xCoordinate) {
+        if (xCoordinate < 0)
+            return;
+
         this.xCoordinate = xCoordinate;
     }
 
@@ -41,6 +44,8 @@ public class GraphNode<E> {
     }
 
     public void setyCoordinate(int yCoordinate) {
+        if (yCoordinate < 0)
+            return;
         this.yCoordinate = yCoordinate;
     }
 
@@ -49,6 +54,8 @@ public class GraphNode<E> {
     }
 
     public void setName(String name) {
+        if (name.length() > 24)
+            return;
         this.name = name;
     }
 
