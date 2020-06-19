@@ -21,6 +21,15 @@ public class GraphNodeTest {
     }
 
     @Test
+    void secondConstructorTest() {
+        node01 = new GraphNode<>("Test", 100, 300);
+        String toString = node01.toString();
+        String expected = "Name: Test, Coordinates: (100, 300).";
+
+        assertEquals(toString, expected);
+    }
+
+    @Test
     void setNameCorrectly() {
         node01.setName("Wexford");
         assertEquals("Wexford", node01.getName());
@@ -44,6 +53,48 @@ public class GraphNodeTest {
         assertEquals(0, node01.getX());
     }
 
+    @Test
+    void setYCorrectly() {
+        node01.setY(100);
+        assertEquals(100, node01.getY());
+    }
 
+    @Test
+    void setYIncorrectly() {
+        node01.setY(-100);
+        assertEquals(0, node01.getY());
+    }
+
+    @Test
+    void toStringTest() {
+        node01.setX(100);
+        node01.setY(1000);
+        node01.setName("This should work");
+
+        String toString = node01.toString();
+        String expecting = "Name: This should work, Coordinates: (100, 1000).";
+
+        assertEquals(expecting, toString);
+    }
+
+    @Test
+    void connectNodeDirectedTest() {
+        node01.connectToNodeDirected(node02, 100);
+
+        assertEquals(node01.getAdjList().get(0).getDestinationNode(), node02);
+    }
+
+    @Test
+    void connectNodeUnDirectedTest() {
+        node01.connectToNodeUndirected(node02, 100);
+
+        assertEquals(node02.getAdjList().get(0).getDestinationNode(), node01);
+    }
+
+    @Test
+    void setDataTest() {
+        node01.setData(-928374);
+        assertEquals(-928374, node01.getData());
+    }
 
 }

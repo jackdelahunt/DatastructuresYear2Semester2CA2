@@ -61,8 +61,7 @@ public class GraphNode<E> {
 
     @Override
     public String toString() {
-        return "Name: " + name +
-                ", Coordinates: (" + x + "," + y + ").";
+        return "Name: " + name + ", Coordinates: (" + x + ", " + y + ").";
     }
 
     public E getData() {
