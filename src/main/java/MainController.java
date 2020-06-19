@@ -114,7 +114,7 @@ public class MainController {
                 }
 
                 // tell the user what happened in the label
-                contextLabel.setText("Generated path from (" + start.getxCoordinate() + ", " + start.getyCoordinate() + ") to (" + end.getxCoordinate() + ", " + end.getyCoordinate() + ")");
+                contextLabel.setText("Generated path from (" + start.getX() + ", " + start.getY() + ") to (" + end.getX() + ", " + end.getY() + ")");
 
 
                 bfsPaths.add(searching.getPath());
@@ -161,14 +161,14 @@ public class MainController {
             culturalBtns[i].setMinSize(btnSize, btnSize);
             culturalBtns[i].setMaxSize(btnSize, btnSize);
             culturalBtns[i].setPrefSize(btnSize, btnSize);
-            culturalBtns[i].setTranslateX(agendaList.get(i).getxCoordinate());
-            culturalBtns[i].setTranslateY(agendaList.get(i).getyCoordinate());
+            culturalBtns[i].setTranslateX(agendaList.get(i).getX());
+            culturalBtns[i].setTranslateY(agendaList.get(i).getY());
 
             int finalBtnIndex = i;
             culturalBtns[i].setOnAction(e -> {
                 nodeName.setText(agendaList.get(finalBtnIndex).getName());
-                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getxCoordinate()));
-                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getyCoordinate()));
+                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getX()));
+                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getY()));
             });
 
             ((Pane) imageView.getParent()).getChildren().add(culturalBtns[i]);
