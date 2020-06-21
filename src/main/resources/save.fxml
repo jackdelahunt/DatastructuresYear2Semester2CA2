@@ -11,8 +11,8 @@
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="189.0" prefWidth="364.0" VBox.vgrow="ALWAYS">
          <children>
-            <TextField layoutX="13.0" layoutY="60.0" prefHeight="25.0" prefWidth="337.0" />
-            <TextField layoutX="13.0" layoutY="111.0" prefHeight="25.0" prefWidth="337.0" />
+            <TextField fx:id="name" layoutX="13.0" layoutY="60.0" prefHeight="25.0" prefWidth="337.0" />
+            <TextField fx:id="path" layoutX="13.0" layoutY="111.0" prefHeight="25.0" prefWidth="337.0" />
             <Label layoutX="13.0" layoutY="14.0" text="Save Image">
                <font>
                   <Font name="System Bold" size="21.0" />

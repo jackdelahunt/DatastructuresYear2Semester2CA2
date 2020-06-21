@@ -61,4 +61,8 @@ public class Main extends Application {
     public static void closeSettings() {
         settingsStage.close();
     }
+
+    public static void closeSave() {
+        saveStage.close();
+    }
 }
