@@ -6,9 +6,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.embed.swing.SwingFXUtils;
+
+import javax.imageio.ImageIO;
 
 public class MainController {
 
@@ -74,6 +81,17 @@ public class MainController {
             Image img = new Image(path, imageWidth, imageHeight, false, true);
             imageView.setImage(img);
             rawImage = img;
+        }
+    }
+
+    public void saveImage() {
+        try {
+            File out = new File("image.png");
+            System.out.println(out.getAbsolutePath());
+            BufferedImage bImage = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+            ImageIO.write(bImage, "png", out);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
