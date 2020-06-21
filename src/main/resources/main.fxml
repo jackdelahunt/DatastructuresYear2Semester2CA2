@@ -19,7 +19,7 @@
                     <items>
                         <Button mnemonicParsing="false" onAction="#fileChooser" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Open" />
                       <Button mnemonicParsing="false" onAction="#openSettings" styleClass="darkButton" stylesheets="@main.css" text="Settings" />
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Save" />
+                        <Button mnemonicParsing="false" onAction="#openSave" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Save" />
                     </items>
                   </ToolBar>
                </children></HBox>

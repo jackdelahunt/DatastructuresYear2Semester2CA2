@@ -6,9 +6,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.embed.swing.SwingFXUtils;
+
+import javax.imageio.ImageIO;
 
 public class MainController {
 
@@ -90,7 +97,7 @@ public class MainController {
             // list of all the paths found based on the points selected
             List<List<GraphNode<?>>> bfsPaths = new ArrayList<>();
             for (int i = 0; i < pointCoordinates.size(); i += 2) {
-                if(i + 2 >= pointCoordinates.size()) {
+                if (i + 2 >= pointCoordinates.size()) {
                     continue;
                 }
                 // get the start nodes based on the first mouse click
@@ -103,7 +110,7 @@ public class MainController {
                 // searching object is based on the start and end node so threading can be used
                 Searching searching = new Searching(start, end);
 
-                if(Settings.searchType) {
+                if (Settings.searchType) {
 
                     // perform the BFS search
                     searching.BFS();
@@ -127,9 +134,9 @@ public class MainController {
             // perform the search
             imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, totalPath, Color.web(Settings.pathColour), Settings.isFabulous));
 
-            }  catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
-            if(e.getMessage() == null)
+            if (e.getMessage() == null)
                 contextLabel.setText("The path cannot be found, Try again Later");
             else if (e.getMessage().equals("Invalid color specification"))
                 contextLabel.setText("Try a new colour like: #00ff00");
@@ -151,7 +158,7 @@ public class MainController {
 
     //Adds icons(buttons) to cultural node position on the map
     public void addCulturalNodesOnMap() {
-            int btnSize = 25;
+        int btnSize = 25;
         Button[] culturalBtns = new Button[agendaList.size()];
 
         for (int i = 0; i < agendaList.size(); i++) {
@@ -227,8 +234,13 @@ public class MainController {
         DatabaseManager.loadAll();
     }
 
-    public  void openSettings() {
+    public void openSettings() {
         Main.openSettingsStage();
+    }
+
+    public void openSave() {
+        Settings.currentImage = imageView.getImage();
+        Main.openSaveStage();
     }
 
 }
