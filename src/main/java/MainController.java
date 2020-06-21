@@ -58,7 +58,6 @@ public class MainController {
      */
     public void setStartImage() {
         Image startImage = new Image("/images/rome.jpg");
-        System.out.println(startImage.getWidth() + "\n" + startImage.getHeight());
         imageView.setImage(startImage);
     }
 
@@ -135,7 +134,6 @@ public class MainController {
             imageView.setImage(ImageProcessor.drawPathOnImage(rawImage, totalPath, Color.web(Settings.pathColour), Settings.isFabulous));
 
         } catch (Exception e) {
-            System.out.println(e);
             if (e.getMessage() == null)
                 contextLabel.setText("The path cannot be found, Try again Later");
             else if (e.getMessage().equals("Invalid color specification"))

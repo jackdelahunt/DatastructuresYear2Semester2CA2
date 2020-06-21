@@ -35,10 +35,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        File file = new File("resources/images/rome.jpg");
-        String absolutePath = file.getAbsolutePath();
-        System.out.println(absolutePath);
-
         launch(args);
     }
 
