@@ -17,6 +17,9 @@ public class Main extends Application {
     private static Scene settingsScene;
     private static Stage settingsStage;
 
+    private static Scene saveScene;
+    private static Stage saveStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
@@ -26,6 +29,9 @@ public class Main extends Application {
 
         root = FXMLLoader.load(getClass().getResource("settings.fxml"));
         settingsScene = new Scene(root);
+
+        root = FXMLLoader.load(getClass().getResource("save.fxml"));
+        saveScene = new Scene(root);
     }
 
     public static void main(String[] args) {
@@ -42,6 +48,14 @@ public class Main extends Application {
         settingsStage.setScene(settingsScene);
 
         settingsStage.show();
+    }
+
+    public static void openSaveStage() {
+        saveStage = new Stage();
+        saveStage.setTitle("Save");
+        saveStage.setScene(saveScene);
+
+        saveStage.show();
     }
 
     public static void closeSettings() {
