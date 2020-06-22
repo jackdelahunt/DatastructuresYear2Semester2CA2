@@ -5,6 +5,8 @@
 
 # xml files
 *.xml
+!saves/*.xml
+
 
 # Log file
 *.log

@@ -1,0 +1,79 @@
+<object-stream>
+  <GraphNode-array>
+    <GraphNode>
+      <x>327</x>
+      <y>361</y>
+      <name>Vatican City</name>
+      <adjList>
+        <GraphEdge>
+          <destinationNode>
+            <x>670</x>
+            <y>492</y>
+            <name>Pantheon</name>
+            <adjList>
+              <GraphEdge>
+                <destinationNode reference="../../../../../.."/>
+                <cost>10</cost>
+              </GraphEdge>
+              <GraphEdge>
+                <destinationNode>
+                  <x>756</x>
+                  <y>601</y>
+                  <name>Roman Forum</name>
+                  <adjList>
+                    <GraphEdge>
+                      <destinationNode reference="../../../../../.."/>
+                      <cost>10</cost>
+                    </GraphEdge>
+                    <GraphEdge>
+                      <destinationNode>
+                        <x>857</x>
+                        <y>644</y>
+                        <name>The Colosseum</name>
+                        <adjList>
+                          <GraphEdge>
+                            <destinationNode reference="../../../../../.."/>
+                            <cost>10</cost>
+                          </GraphEdge>
+                        </adjList>
+                      </destinationNode>
+                      <cost>10</cost>
+                    </GraphEdge>
+                    <GraphEdge>
+                      <destinationNode>
+                        <x>734</x>
+                        <y>451</y>
+                        <name>Trevi Fountain</name>
+                        <adjList>
+                          <GraphEdge>
+                            <destinationNode reference="../../../../../../../../.."/>
+                            <cost>10</cost>
+                          </GraphEdge>
+                          <GraphEdge>
+                            <destinationNode reference="../../../../../.."/>
+                            <cost>10</cost>
+                          </GraphEdge>
+                        </adjList>
+                      </destinationNode>
+                      <cost>10</cost>
+                    </GraphEdge>
+                  </adjList>
+                </destinationNode>
+                <cost>10</cost>
+              </GraphEdge>
+              <GraphEdge>
+                <destinationNode reference="../../GraphEdge[2]/destinationNode/adjList/GraphEdge[3]/destinationNode"/>
+                <cost>10</cost>
+              </GraphEdge>
+            </adjList>
+          </destinationNode>
+          <cost>10</cost>
+        </GraphEdge>
+      </adjList>
+    </GraphNode>
+    <GraphNode reference="../GraphNode/adjList/GraphEdge/destinationNode/adjList/GraphEdge[2]/destinationNode"/>
+    <GraphNode reference="../GraphNode/adjList/GraphEdge/destinationNode"/>
+    <GraphNode reference="../GraphNode/adjList/GraphEdge/destinationNode/adjList/GraphEdge[2]/destinationNode/adjList/GraphEdge[2]/destinationNode"/>
+    <GraphNode reference="../GraphNode/adjList/GraphEdge/destinationNode/adjList/GraphEdge[2]/destinationNode/adjList/GraphEdge[3]/destinationNode"/>
+  </GraphNode-array>
+</object-stream>
