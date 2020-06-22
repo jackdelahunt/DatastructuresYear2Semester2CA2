@@ -61,19 +61,19 @@ public class Main extends Application {
         saveStage.close();
     }
 
-    public static GraphNode[] loadNodesFromFile() throws IOException, ClassNotFoundException {
+    public static GraphNode<?>[] loadNodesFromFile() throws IOException, ClassNotFoundException {
 
-        GraphNode[] nodes;
+        GraphNode<?>[] nodes;
 
         XStream xstream = new XStream(new DomDriver());
         ObjectInputStream is = xstream.createObjectInputStream(new FileReader("Nodes.xml"));
-        nodes = (GraphNode[]) is.readObject();
+        nodes = (GraphNode<?>[]) is.readObject();
         is.close();
 
         return nodes;
     }
 
-    public static void saveNodeToFile(GraphNode[] nodes) throws Exception {
+    public static void saveNodeToFile(GraphNode<?>[] nodes) throws Exception {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("Nodes.xml"));
         out.writeObject(nodes);

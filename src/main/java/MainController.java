@@ -22,7 +22,7 @@ public class MainController {
 
     // these are some text fields that show the data about the selected points
     @FXML
-    private TextField nodeName, addPointX, addPointY;
+    private TextField addPointX, addPointY;
 
     // this is the image that is loaded on at the start and is used
     // when changing the image as this does not have alterations
@@ -39,6 +39,15 @@ public class MainController {
 
     public void initialize() {
         setStartImage();
+
+        GraphNode<?>[] nodes;
+
+        try {
+            nodes = Main.loadNodesFromFile();
+            addCulturalNodesOnMap(nodes);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         // this is used so when editing the image we
         // can use the original image instead of the
@@ -147,27 +156,23 @@ public class MainController {
     }
 
 
-    //Adds icons(buttons) to cultural node position on the map
-    public void addCulturalNodesOnMap() {
+    /**
+     * called at the start of the controller to draw points of landmarks to the map
+     * @param nodes the nodes that you want to draw at
+     */
+    public void addCulturalNodesOnMap(GraphNode<?>[] nodes) {
         int btnSize = 25;
-        Button[] culturalBtns = new Button[agendaList.size()];
+        Button[] culturalBtns = new Button[nodes.length];
 
-        for (int i = 0; i < agendaList.size(); i++) {
+        for (int i = 0; i < nodes.length; i++) {
             culturalBtns[i] = new Button();
             culturalBtns[i].getStyleClass().clear();
             culturalBtns[i].getStyleClass().add("culturalNodeIcon");
             culturalBtns[i].setMinSize(btnSize, btnSize);
             culturalBtns[i].setMaxSize(btnSize, btnSize);
             culturalBtns[i].setPrefSize(btnSize, btnSize);
-            culturalBtns[i].setTranslateX(agendaList.get(i).getX());
-            culturalBtns[i].setTranslateY(agendaList.get(i).getY());
-
-            int finalBtnIndex = i;
-            culturalBtns[i].setOnAction(e -> {
-                nodeName.setText(agendaList.get(finalBtnIndex).getName());
-                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getX()));
-                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getY()));
-            });
+            culturalBtns[i].setTranslateX(nodes[i].getX());
+            culturalBtns[i].setTranslateY(nodes[i].getY());
 
             ((Pane) imageView.getParent()).getChildren().add(culturalBtns[i]);
         }
