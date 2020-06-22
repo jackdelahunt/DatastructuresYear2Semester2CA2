@@ -66,7 +66,7 @@ public class Main extends Application {
         GraphNode<?>[] nodes;
 
         XStream xstream = new XStream(new DomDriver());
-        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("Nodes.xml"));
+        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("saves/Nodes.xml"));
         nodes = (GraphNode<?>[]) is.readObject();
         is.close();
 
@@ -75,7 +75,7 @@ public class Main extends Application {
 
     public static void saveNodeToFile(GraphNode<?>[] nodes) throws Exception {
         XStream xstream = new XStream(new DomDriver());
-        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("Nodes.xml"));
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("saves/Nodes.xml"));
         out.writeObject(nodes);
         out.close();
     }

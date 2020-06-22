@@ -44,6 +44,7 @@ public class MainController {
 
         try {
             nodes = Main.loadNodesFromFile();
+            System.out.println(nodes.length);
             addCulturalNodesOnMap(nodes);
         } catch (Exception e) {
             System.out.println(e);
@@ -161,20 +162,19 @@ public class MainController {
      * @param nodes the nodes that you want to draw at
      */
     public void addCulturalNodesOnMap(GraphNode<?>[] nodes) {
-        int btnSize = 25;
-        Button[] culturalBtns = new Button[nodes.length];
+        int buttonSize = 25;
+        Button[] culturalButtons = new Button[nodes.length];
 
         for (int i = 0; i < nodes.length; i++) {
-            culturalBtns[i] = new Button();
-            culturalBtns[i].getStyleClass().clear();
-            culturalBtns[i].getStyleClass().add("culturalNodeIcon");
-            culturalBtns[i].setMinSize(btnSize, btnSize);
-            culturalBtns[i].setMaxSize(btnSize, btnSize);
-            culturalBtns[i].setPrefSize(btnSize, btnSize);
-            culturalBtns[i].setTranslateX(nodes[i].getX());
-            culturalBtns[i].setTranslateY(nodes[i].getY());
+            culturalButtons[i] = new Button();
+            culturalButtons[i].setStyle("-fx-background-radius: 50%; -fx-background-image: url('geopoint.png');");
+            culturalButtons[i].setMinSize(buttonSize, buttonSize);
+            culturalButtons[i].setMaxSize(buttonSize, buttonSize);
+            culturalButtons[i].setPrefSize(buttonSize, buttonSize);
+            culturalButtons[i].setTranslateX(nodes[i].getX());
+            culturalButtons[i].setTranslateY(nodes[i].getY());
 
-            ((Pane) imageView.getParent()).getChildren().add(culturalBtns[i]);
+            ((Pane) imageView.getParent()).getChildren().add(culturalButtons[i]);
         }
     }
 
