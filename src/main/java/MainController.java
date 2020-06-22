@@ -6,16 +6,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javafx.embed.swing.SwingFXUtils;
-
-import javax.imageio.ImageIO;
 
 public class MainController {
 
@@ -139,7 +132,7 @@ public class MainController {
             else if (e.getMessage().equals("Invalid color specification"))
                 contextLabel.setText("Try a new colour like: #00ff00");
             else
-                contextLabel.setText("Ooops... Something went wrong");
+                contextLabel.setText("Oops... Something went wrong");
 
         }
     }
@@ -226,18 +219,12 @@ public class MainController {
         }
     }
 
-
-    //loads data from databaseManager
-    public void loadAll() {
-        DatabaseManager.loadAll();
-    }
-
     public void openSettings() {
         Main.openSettingsStage();
     }
 
     public void openSave() {
-        Settings.currentImage = imageView.getImage();
+        Settings.savedImage = imageView.getImage();
         Main.openSaveStage();
     }
 
