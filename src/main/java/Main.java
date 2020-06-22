@@ -1,14 +1,13 @@
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +59,24 @@ public class Main extends Application {
 
     public static void closeSave() {
         saveStage.close();
+    }
+
+    public static GraphNode[] loadNodesFromFile() throws IOException, ClassNotFoundException {
+
+        GraphNode[] nodes;
+
+        XStream xstream = new XStream(new DomDriver());
+        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("Nodes.xml"));
+        nodes = (GraphNode[]) is.readObject();
+        is.close();
+
+        return nodes;
+    }
+
+    public static void saveNodeToFile(GraphNode[] nodes) throws Exception {
+        XStream xstream = new XStream(new DomDriver());
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("Nodes.xml"));
+        out.writeObject(nodes);
+        out.close();
     }
 }
