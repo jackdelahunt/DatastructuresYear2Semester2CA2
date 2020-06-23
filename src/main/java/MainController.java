@@ -22,7 +22,7 @@ public class MainController {
 
     // these are some text fields that show the data about the selected points
     @FXML
-    private TextField nodeName, addPointX, addPointY;
+    private TextField addPointX, addPointY;
 
     // this is the image that is loaded on at the start and is used
     // when changing the image as this does not have alterations
@@ -39,6 +39,16 @@ public class MainController {
 
     public void initialize() {
         setStartImage();
+
+        GraphNode<?>[] nodes;
+
+        try {
+            nodes = Main.loadNodesFromFile();
+            System.out.println(nodes.length);
+            addCulturalNodesOnMap(nodes);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         // this is used so when editing the image we
         // can use the original image instead of the
@@ -147,29 +157,24 @@ public class MainController {
     }
 
 
-    //Adds icons(buttons) to cultural node position on the map
-    public void addCulturalNodesOnMap() {
-        int btnSize = 25;
-        Button[] culturalBtns = new Button[agendaList.size()];
+    /**
+     * called at the start of the controller to draw points of landmarks to the map
+     * @param nodes the nodes that you want to draw at
+     */
+    public void addCulturalNodesOnMap(GraphNode<?>[] nodes) {
+        int buttonSize = 25;
+        Button[] culturalButtons = new Button[nodes.length];
 
-        for (int i = 0; i < agendaList.size(); i++) {
-            culturalBtns[i] = new Button();
-            culturalBtns[i].getStyleClass().clear();
-            culturalBtns[i].getStyleClass().add("culturalNodeIcon");
-            culturalBtns[i].setMinSize(btnSize, btnSize);
-            culturalBtns[i].setMaxSize(btnSize, btnSize);
-            culturalBtns[i].setPrefSize(btnSize, btnSize);
-            culturalBtns[i].setTranslateX(agendaList.get(i).getX());
-            culturalBtns[i].setTranslateY(agendaList.get(i).getY());
+        for (int i = 0; i < nodes.length; i++) {
+            culturalButtons[i] = new Button();
+            culturalButtons[i].setStyle("-fx-background-radius: 50%; -fx-background-image: url('geopoint.png');");
+            culturalButtons[i].setMinSize(buttonSize, buttonSize);
+            culturalButtons[i].setMaxSize(buttonSize, buttonSize);
+            culturalButtons[i].setPrefSize(buttonSize, buttonSize);
+            culturalButtons[i].setTranslateX(nodes[i].getX());
+            culturalButtons[i].setTranslateY(nodes[i].getY());
 
-            int finalBtnIndex = i;
-            culturalBtns[i].setOnAction(e -> {
-                nodeName.setText(agendaList.get(finalBtnIndex).getName());
-                addPointX.setText(String.valueOf(agendaList.get(finalBtnIndex).getX()));
-                addPointY.setText(String.valueOf(agendaList.get(finalBtnIndex).getY()));
-            });
-
-            ((Pane) imageView.getParent()).getChildren().add(culturalBtns[i]);
+            ((Pane) imageView.getParent()).getChildren().add(culturalButtons[i]);
         }
     }
 
