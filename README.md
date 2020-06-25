@@ -6,7 +6,7 @@ the map. <br>
 An example of a map that is compatible with this software is the following.<br>
 ![Rome](src/main/resources/images/rome.jpg) <br>
 <br>
-<h2> Models.Settings </h2>
+<h2> Settings </h2>
 - Path Colour: colour of the path that is drawn in hexadecimal.
 - Rainbow Road: Overrides the path colour and changes the colour path while drawing adding a rainbow effect.
 - BFS: This selects what search algorithm will be used when finding the path.
