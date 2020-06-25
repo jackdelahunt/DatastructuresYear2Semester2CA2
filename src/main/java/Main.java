@@ -19,6 +19,9 @@ public class Main extends Application {
     private static Scene saveScene;
     private static Stage saveStage;
 
+    private static Scene finderScene;
+    private static Stage finderStage;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
@@ -31,6 +34,9 @@ public class Main extends Application {
 
         root = FXMLLoader.load(getClass().getResource("save.fxml"));
         saveScene = new Scene(root);
+
+        root = FXMLLoader.load(getClass().getResource("finder.fxml"));
+        finderScene = new Scene(root);
     }
 
     public static void main(String[] args) {
@@ -51,6 +57,14 @@ public class Main extends Application {
         saveStage.setScene(saveScene);
 
         saveStage.show();
+    }
+
+    public static void openFinderStage() {
+        finderStage = new Stage();
+        finderStage.setTitle("Finder");
+        finderStage.setScene(finderScene);
+
+        finderStage.show();
     }
 
     public static void closeSettings() {

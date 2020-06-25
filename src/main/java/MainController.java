@@ -28,13 +28,6 @@ public class MainController {
     @FXML
     private TextField addPointX, addPointY;
 
-    // the table that stores all of the landmark nodes
-    @FXML
-    private TableView<GraphNode<?>> landmarkTable;
-
-    @FXML
-    private TableColumn<GraphNode<?>, String> nameColumn, xColumn, yColumn;
-
     // this is the image that is loaded on at the start and is used
     // when changing the image as this does not have alterations
     private Image rawImage;
@@ -57,7 +50,6 @@ public class MainController {
             GraphNode<?>[] nodes = Main.loadNodesFromFile();
 
             addCulturalNodesOnMap(nodes);
-            handleLandmarkTable(nodes);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -201,16 +193,6 @@ public class MainController {
         }
     }
 
-    public void handleLandmarkTable(GraphNode<?>[] landmarks) {
-        ObservableList landmarkList = FXCollections.observableList(new ArrayList(Arrays.asList(landmarks)));
-        nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
-        xColumn.setCellValueFactory(new PropertyValueFactory("x"));
-        yColumn.setCellValueFactory(new PropertyValueFactory("y"));
-
-        landmarkTable.setItems(landmarkList);
-
-    }
-
     public void addMarkerOnMap(int x, int y) {
         // create a new node, with the data start or end based on the limit
         GraphNode<?> temp = new GraphNode<>(limit == 0 ? "Start" : "End", x, y);
@@ -264,6 +246,10 @@ public class MainController {
     public void openSave() {
         Settings.savedImage = imageView.getImage();
         Main.openSaveStage();
+    }
+
+    public void openFinder() {
+        Main.openFinderStage();
     }
 
 }
