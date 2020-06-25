@@ -1,3 +1,7 @@
+package Controllers;
+
+import Models.Main;
+import Models.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;

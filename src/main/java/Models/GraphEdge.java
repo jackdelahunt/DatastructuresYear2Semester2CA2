@@ -1,3 +1,5 @@
+package Models;
+
 public class GraphEdge {
 
     private GraphNode<?> destinationNode;

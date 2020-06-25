@@ -1,3 +1,5 @@
+package Models;
+
 import javafx.scene.image.Image;
 
 public class Settings {

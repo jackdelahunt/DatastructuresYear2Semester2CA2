@@ -1,3 +1,7 @@
+package Controllers;
+
+import Models.Main;
+import Models.Settings;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -12,7 +16,7 @@ public class SaveController {
     private TextField name, path;
 
     /**
-     * saves the image that is stored in Settings to a specified path
+     * saves the image that is stored in Models.Settings to a specified path
      */
     public void saveImage() {
         try {

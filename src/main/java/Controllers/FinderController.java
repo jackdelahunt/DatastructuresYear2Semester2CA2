@@ -1,3 +1,8 @@
+package Controllers;
+
+import Models.GraphNode;
+import Models.Searching;
+import Models.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -5,7 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,7 +19,7 @@ public class FinderController {
     TableView startTable, endTable, resultTable;
 
     @FXML
-    TableColumn startLandmarksColumn, endLandmarksColumn, resultLandmarkName, resultLandmarkDistance;
+    TableColumn startLandmarksColumn, endLandmarksColumn, resultLandmarkName;
 
     @FXML
     TextField startLandmarkField, endLandmarkField;
@@ -46,17 +50,32 @@ public class FinderController {
 
     }
 
-    /**
-     * called by both of the set buttons
-     */
-    public void setTextFields() {
+    public void setStartLandmarkField() {
         startLandmark = (GraphNode)startTable.getSelectionModel().getSelectedItem();
+        System.out.println(startLandmark.getName());
         if(startLandmark != null)
             startLandmarkField.setText(startLandmark.getName());
+    }
 
+    public void setEndLandmarkField() {
         endLandmark = (GraphNode)endTable.getSelectionModel().getSelectedItem();
+        System.out.println(endLandmark.getName());
         if(endLandmark != null)
             endLandmarkField.setText(endLandmark.getName());
+    }
+
+    public void findPath() {
+        try {
+            Searching searching = new Searching(startLandmark, endLandmark);
+            searching.dijkstra(Main.loadNodesFromFile());
+
+            ObservableList path = FXCollections.observableList(new ArrayList(Arrays.asList(searching.getPath())));
+            resultLandmarkName.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+            resultTable.setItems(path);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
 }

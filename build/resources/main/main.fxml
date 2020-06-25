@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1467.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1467.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
     <children>
       <VBox prefHeight="800.0" prefWidth="290.0" styleClass="dataPanel" stylesheets="@main.css">
          <children>
@@ -19,7 +19,7 @@
                     <items>
                         <Button mnemonicParsing="false" onAction="#fileChooser" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Open" />
                         <Button fx:id="findButton" mnemonicParsing="false" onAction="#openFinder" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Find" />
-                      <Button mnemonicParsing="false" onAction="#openSettings" styleClass="darkButton" stylesheets="@main.css" text="Settings" />
+                      <Button mnemonicParsing="false" onAction="#openSettings" styleClass="darkButton" stylesheets="@main.css" text="Models.Settings" />
                         <Button mnemonicParsing="false" onAction="#openSave" prefHeight="25.0" prefWidth="63.0" styleClass="darkButton" stylesheets="@main.css" text="Save" />
                     </items>
                   </ToolBar>

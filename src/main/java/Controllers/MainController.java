@@ -1,8 +1,8 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+package Controllers;
+
+import Models.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -11,7 +11,6 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainController {

@@ -1,3 +1,7 @@
+package Models;
+
+import Models.GraphEdge;
+import Models.GraphNode;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;

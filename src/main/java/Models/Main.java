@@ -1,4 +1,6 @@
+package Models;
 
+import Models.GraphNode;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.application.Application;
@@ -8,8 +10,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -24,18 +24,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../main.fxml"));
         primaryStage.setTitle("Rome Route Finder");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        root = FXMLLoader.load(getClass().getResource("settings.fxml"));
+        root = FXMLLoader.load(getClass().getResource("../settings.fxml"));
         settingsScene = new Scene(root);
 
-        root = FXMLLoader.load(getClass().getResource("save.fxml"));
+        root = FXMLLoader.load(getClass().getResource("../save.fxml"));
         saveScene = new Scene(root);
 
-        root = FXMLLoader.load(getClass().getResource("finder.fxml"));
+        root = FXMLLoader.load(getClass().getResource("../finder.fxml"));
         finderScene = new Scene(root);
     }
 

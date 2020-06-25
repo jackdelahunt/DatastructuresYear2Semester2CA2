@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SettingsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SettingsController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="600.0" prefWidth="498.0" VBox.vgrow="ALWAYS">
          <children>
@@ -16,12 +16,12 @@
             <TextField fx:id="colourField" layoutX="15.0" layoutY="69.0" prefHeight="25.0" prefWidth="369.0" />
             <Label layoutX="169.0" layoutY="51.0" text="Path Colour" />
             <CheckBox fx:id="rainbowRoad" layoutX="139.0" layoutY="105.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="166.0" text="Rainbow Road" />
-            <Label layoutX="14.0" layoutY="21.0" text="Path Settings">
+            <Label layoutX="14.0" layoutY="21.0" text="Path Models.Settings">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="180.0" text="Search Settings">
+            <Label layoutX="14.0" layoutY="180.0" text="Search Models.Settings">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

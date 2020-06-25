@@ -1,3 +1,8 @@
+package Models;
+
+import Models.GraphEdge;
+import Models.GraphNode;
+
 import java.util.*;
 
 
@@ -86,12 +91,12 @@ public class Searching <E> {
 
         // go through each node in the array and set its cost
         // to infinity
-        for(GraphNode<E> node : graph)
-            cost.put(node, Integer.MAX_VALUE);
-
-        // set the start node cost to 0 as the cost map
-        // is the cost from the start node so it has to be 0
-        cost.put(start, 0);
+        for(GraphNode<E> node : graph) {
+            if(node.equals(start))
+                cost.put(node, 0);
+            else
+                cost.put(node, Integer.MAX_VALUE);
+        }
 
         // add the start node to the queue as that is where we need
         // to start from
@@ -189,4 +194,5 @@ public class Searching <E> {
 
         return finalPath;
     }
+
 }
