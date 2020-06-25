@@ -1,5 +1,8 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -8,6 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainController {
@@ -23,6 +27,13 @@ public class MainController {
     // these are some text fields that show the data about the selected points
     @FXML
     private TextField addPointX, addPointY;
+
+    // the table that stores all of the landmark nodes
+    @FXML
+    private TableView<GraphNode<?>> landmarkTable;
+
+    @FXML
+    private TableColumn<GraphNode<?>, String> nameColumn, xColumn, yColumn;
 
     // this is the image that is loaded on at the start and is used
     // when changing the image as this does not have alterations
@@ -40,12 +51,14 @@ public class MainController {
     public void initialize() {
         setStartImage();
 
-        GraphNode<?>[] nodes;
+
 
         try {
-            nodes = Main.loadNodesFromFile();
-            System.out.println(nodes.length);
+            GraphNode<?>[] nodes = Main.loadNodesFromFile();
+
             addCulturalNodesOnMap(nodes);
+            handleLandmarkTable(nodes);
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -163,19 +176,39 @@ public class MainController {
      */
     public void addCulturalNodesOnMap(GraphNode<?>[] nodes) {
         int buttonSize = 25;
-        Button[] culturalButtons = new Button[nodes.length];
+        int labelOffsetX = 30;
+        int labelOffsetY = 5;
+
+        Button[] landmarkButtons = new Button[nodes.length];
+        Label[] landmarkLabels = new Label[nodes.length];
 
         for (int i = 0; i < nodes.length; i++) {
-            culturalButtons[i] = new Button();
-            culturalButtons[i].setStyle("-fx-background-radius: 50%; -fx-background-image: url('geopoint.png');");
-            culturalButtons[i].setMinSize(buttonSize, buttonSize);
-            culturalButtons[i].setMaxSize(buttonSize, buttonSize);
-            culturalButtons[i].setPrefSize(buttonSize, buttonSize);
-            culturalButtons[i].setTranslateX(nodes[i].getX());
-            culturalButtons[i].setTranslateY(nodes[i].getY());
+            landmarkButtons[i] = new Button();
+            landmarkButtons[i].getStyleClass().clear();
+            landmarkButtons[i].setStyle("-fx-background-radius: 50%; -fx-background-image: url('geopoint.png');");
+            landmarkButtons[i].setMinSize(buttonSize, buttonSize);
+            landmarkButtons[i].setMaxSize(buttonSize, buttonSize);
+            landmarkButtons[i].setPrefSize(buttonSize, buttonSize);
+            landmarkButtons[i].setTranslateX(nodes[i].getX());
+            landmarkButtons[i].setTranslateY(nodes[i].getY());
 
-            ((Pane) imageView.getParent()).getChildren().add(culturalButtons[i]);
+            landmarkLabels[i] = new Label(nodes[i].getName());
+            landmarkLabels[i].setTranslateX(nodes[i].getX() + labelOffsetX);
+            landmarkLabels[i].setTranslateY(nodes[i].getY() + labelOffsetY);
+
+            ((Pane) imageView.getParent()).getChildren().add(landmarkButtons[i]);
+            ((Pane) imageView.getParent()).getChildren().add(landmarkLabels[i]);
         }
+    }
+
+    public void handleLandmarkTable(GraphNode<?>[] landmarks) {
+        ObservableList landmarkList = FXCollections.observableList(new ArrayList(Arrays.asList(landmarks)));
+        nameColumn.setCellValueFactory(new PropertyValueFactory("name"));
+        xColumn.setCellValueFactory(new PropertyValueFactory("x"));
+        yColumn.setCellValueFactory(new PropertyValueFactory("y"));
+
+        landmarkTable.setItems(landmarkList);
+
     }
 
     public void addMarkerOnMap(int x, int y) {
