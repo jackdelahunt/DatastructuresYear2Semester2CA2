@@ -3,6 +3,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
@@ -15,6 +16,11 @@ public class FinderController {
 
     @FXML
     TableColumn startLandmarksColumn, endLandmarksColumn, resultLandmarkName, resultLandmarkDistance;
+
+    @FXML
+    TextField startLandmarkField, endLandmarkField;
+
+    GraphNode<?> startLandmark, endLandmark;
 
     public void initialize() {
 
@@ -38,6 +44,19 @@ public class FinderController {
             System.out.println(e);
         }
 
+    }
+
+    /**
+     * called by both of the set buttons
+     */
+    public void setTextFields() {
+        startLandmark = (GraphNode)startTable.getSelectionModel().getSelectedItem();
+        if(startLandmark != null)
+            startLandmarkField.setText(startLandmark.getName());
+
+        endLandmark = (GraphNode)endTable.getSelectionModel().getSelectedItem();
+        if(endLandmark != null)
+            endLandmarkField.setText(endLandmark.getName());
     }
 
 }
