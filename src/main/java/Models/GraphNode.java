@@ -21,6 +21,13 @@ public class GraphNode<E> {
         setY(y);
     }
 
+    public GraphNode(E data, String nodeName, int x, int y) {
+        this.data = data;
+        setName(nodeName);
+        setX(x);
+        setY(y);
+    }
+
     public void connectToNodeDirected(GraphNode<?> destNode, int cost) {
         adjList.add(new GraphEdge(destNode, cost));
     }

@@ -40,6 +40,11 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+        try {
+            saveNodeToFile(getLandmarks());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         launch(args);
     }
 
@@ -75,22 +80,45 @@ public class Main extends Application {
         saveStage.close();
     }
 
-    public static GraphNode<?>[] loadNodesFromFile() throws IOException, ClassNotFoundException {
+    public static GraphNode<String>[] loadNodesFromFile() throws IOException, ClassNotFoundException {
 
-        GraphNode<?>[] nodes;
+        GraphNode<String>[] nodes;
 
         XStream xstream = new XStream(new DomDriver());
         ObjectInputStream is = xstream.createObjectInputStream(new FileReader("saves/Nodes.xml"));
-        nodes = (GraphNode<?>[]) is.readObject();
+        nodes = (GraphNode<String>[]) is.readObject();
         is.close();
 
         return nodes;
     }
 
-    public static void saveNodeToFile(GraphNode<?>[] nodes) throws Exception {
+    public static void saveNodeToFile(GraphNode<String>[] nodes) throws Exception {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("saves/Nodes.xml"));
         out.writeObject(nodes);
         out.close();
+    }
+
+    public static GraphNode<String>[] getLandmarks() {
+        GraphNode<String> vatican = new GraphNode<>("Vatican City", "Vatican City", 327, 361);
+        GraphNode<String> pantheon = new GraphNode<>("Pantheon", "Pantheon", 670, 492);
+        GraphNode<String> forum = new GraphNode<>("Roman Forum", "Roman Forum", 756, 601);
+        GraphNode<String> colosseum = new GraphNode<>("The Colosseum", "The Colosseum", 857, 644);
+        GraphNode<String> trevi = new GraphNode<>("Trei Fountain", "Trevi Fountain", 734, 451);
+
+        vatican.connectToNodeUndirected(pantheon, 10);
+        pantheon.connectToNodeUndirected(trevi, 10);
+        pantheon.connectToNodeUndirected(forum, 10);
+        forum.connectToNodeUndirected(colosseum, 10);
+
+        GraphNode<String>[] landmarks = new GraphNode[5];
+
+        landmarks[0] = vatican;
+        landmarks[1] = pantheon;
+        landmarks[2] = forum;
+        landmarks[3] = colosseum;
+        landmarks[4] = trevi;
+
+        return landmarks;
     }
 }

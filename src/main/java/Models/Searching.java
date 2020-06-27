@@ -92,11 +92,10 @@ public class Searching <E> {
         // go through each node in the array and set its cost
         // to infinity
         for(GraphNode<E> node : graph) {
-            if(node.equals(start))
-                cost.put(node, 0);
-            else
-                cost.put(node, Integer.MAX_VALUE);
+            cost.put(node, Integer.MAX_VALUE);
         }
+
+        cost.put(start, 0);
 
         // add the start node to the queue as that is where we need
         // to start from

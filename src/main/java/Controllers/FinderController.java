@@ -24,11 +24,11 @@ public class FinderController {
     @FXML
     TextField startLandmarkField, endLandmarkField;
 
-    GraphNode<?> startLandmark, endLandmark;
+    GraphNode<String> startLandmark, endLandmark;
 
     public void initialize() {
 
-        GraphNode<?>[] landmarks;
+        GraphNode<String>[] landmarks;
 
         try {
 
@@ -51,22 +51,21 @@ public class FinderController {
     }
 
     public void setStartLandmarkField() {
-        startLandmark = (GraphNode)startTable.getSelectionModel().getSelectedItem();
-        System.out.println(startLandmark.getName());
+        startLandmark = (GraphNode<String>)startTable.getSelectionModel().getSelectedItem();
         if(startLandmark != null)
             startLandmarkField.setText(startLandmark.getName());
     }
 
     public void setEndLandmarkField() {
-        endLandmark = (GraphNode)endTable.getSelectionModel().getSelectedItem();
-        System.out.println(endLandmark.getName());
+        endLandmark = (GraphNode<String>)endTable.getSelectionModel().getSelectedItem();
         if(endLandmark != null)
             endLandmarkField.setText(endLandmark.getName());
     }
 
     public void findPath() {
+        System.out.println(startLandmark.toString() + " : " + endLandmark.toString());
         try {
-            Searching searching = new Searching(startLandmark, endLandmark);
+            Searching<String> searching = new Searching(startLandmark, endLandmark);
             searching.dijkstra(Main.loadNodesFromFile());
 
             ObservableList path = FXCollections.observableList(new ArrayList(Arrays.asList(searching.getPath())));
