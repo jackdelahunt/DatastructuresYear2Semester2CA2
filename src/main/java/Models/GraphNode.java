@@ -70,7 +70,13 @@ public class GraphNode<E> {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", Coordinates: (" + x + ", " + y + ").";
+        String connectingNodesNames = "";
+        for(GraphEdge edge : adjList)
+            connectingNodesNames += edge.toString() + "\n";
+
+        return "Name: " + name + ", Coordinates: (" + x + ", " + y + ") \n" +
+                "Connected to: \n" +
+                connectingNodesNames;
     }
 
     public E getData() {

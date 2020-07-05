@@ -91,9 +91,8 @@ public class Searching <E> {
 
         // go through each node in the array and set its cost
         // to infinity
-        for(GraphNode<E> node : graph) {
+        for(GraphNode<E> node : graph)
             cost.put(node, Integer.MAX_VALUE);
-        }
 
         cost.put(start, 0);
 

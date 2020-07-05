@@ -27,4 +27,8 @@ public class GraphEdge {
             cost = 0;
         this.cost = cost;
     }
+
+    public String toString() {
+        return destinationNode.getName() + "(" + cost  + ")";
+    }
 }

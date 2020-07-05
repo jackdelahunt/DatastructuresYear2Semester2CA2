@@ -104,13 +104,23 @@ public class Main extends Application {
         GraphNode<String> pantheon = new GraphNode<>("Pantheon", "Pantheon", 670, 492);
         GraphNode<String> forum = new GraphNode<>("Roman Forum", "Roman Forum", 756, 601);
         GraphNode<String> colosseum = new GraphNode<>("The Colosseum", "The Colosseum", 857, 644);
-        GraphNode<String> trevi = new GraphNode<>("Trei Fountain", "Trevi Fountain", 734, 451);
+        GraphNode<String> trevi = new GraphNode<>("Trevi Fountain", "Trevi Fountain", 734, 451);
 
         vatican.connectToNodeUndirected(pantheon, 10);
-        pantheon.connectToNodeUndirected(trevi, 10);
+        trevi.connectToNodeUndirected(pantheon, 10);
         pantheon.connectToNodeUndirected(forum, 10);
         forum.connectToNodeUndirected(colosseum, 10);
 
+        /*
+        vatican.connectToNodeDirected(pantheon, 10);
+        pantheon.connectToNodeDirected(vatican, 10);
+        pantheon.connectToNodeDirected(trevi, 10);
+        trevi.connectToNodeDirected(pantheon, 10);
+        pantheon.connectToNodeDirected(forum, 10);
+        forum.connectToNodeDirected(forum, 10);
+        forum.connectToNodeDirected(colosseum, 10);
+        colosseum.connectToNodeDirected(forum, 10);
+        */
         GraphNode<String>[] landmarks = new GraphNode[5];
 
         landmarks[0] = vatican;

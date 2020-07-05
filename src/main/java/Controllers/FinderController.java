@@ -63,7 +63,7 @@ public class FinderController {
     }
 
     public void findPath() {
-        System.out.println(startLandmark.toString() + " : " + endLandmark.toString());
+        System.out.println(startLandmark.toString() + endLandmark.toString());
         try {
             Searching<String> searching = new Searching(startLandmark, endLandmark);
             searching.dijkstra(Main.loadNodesFromFile());

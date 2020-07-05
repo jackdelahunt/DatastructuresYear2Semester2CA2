@@ -21,15 +21,6 @@ public class GraphNodeTest {
     }
 
     @Test
-    void secondConstructorTest() {
-        node01 = new GraphNode<>("Test", 100, 300);
-        String toString = node01.toString();
-        String expected = "Name: Test, Coordinates: (100, 300).";
-
-        assertEquals(toString, expected);
-    }
-
-    @Test
     void setNameCorrectly() {
         node01.setName("Wexford");
         assertEquals("Wexford", node01.getName());
@@ -63,18 +54,6 @@ public class GraphNodeTest {
     void setYIncorrectly() {
         node01.setY(-100);
         assertEquals(0, node01.getY());
-    }
-
-    @Test
-    void toStringTest() {
-        node01.setX(100);
-        node01.setY(1000);
-        node01.setName("This should work");
-
-        String toString = node01.toString();
-        String expecting = "Name: This should work, Coordinates: (100, 1000).";
-
-        assertEquals(expecting, toString);
     }
 
     @Test
