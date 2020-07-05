@@ -66,7 +66,7 @@ public class FinderController {
         System.out.println(startLandmark.toString() + endLandmark.toString());
         try {
             Searching<String> searching = new Searching(startLandmark, endLandmark);
-            searching.dijkstra(Main.loadNodesFromFile());
+            searching.BFS();
 
             ObservableList path = FXCollections.observableList(new ArrayList(Arrays.asList(searching.getPath())));
             resultLandmarkName.setCellValueFactory(new PropertyValueFactory<>("name"));
