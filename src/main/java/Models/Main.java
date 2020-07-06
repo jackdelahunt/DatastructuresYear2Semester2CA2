@@ -110,17 +110,7 @@ public class Main extends Application {
         trevi.connectToNodeUndirected(pantheon, 10);
         pantheon.connectToNodeUndirected(forum, 10);
         forum.connectToNodeUndirected(colosseum, 10);
-
-        /*
-        vatican.connectToNodeDirected(pantheon, 10);
-        pantheon.connectToNodeDirected(vatican, 10);
-        pantheon.connectToNodeDirected(trevi, 10);
-        trevi.connectToNodeDirected(pantheon, 10);
-        pantheon.connectToNodeDirected(forum, 10);
-        forum.connectToNodeDirected(forum, 10);
-        forum.connectToNodeDirected(colosseum, 10);
-        colosseum.connectToNodeDirected(forum, 10);
-        */
+        
         GraphNode<String>[] landmarks = new GraphNode[5];
 
         landmarks[0] = vatican;

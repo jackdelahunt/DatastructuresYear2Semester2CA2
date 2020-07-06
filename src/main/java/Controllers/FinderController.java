@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class FinderController {
 
@@ -66,9 +67,11 @@ public class FinderController {
         System.out.println(startLandmark.toString() + endLandmark.toString());
         try {
             Searching<String> searching = new Searching(startLandmark, endLandmark);
-            searching.BFS();
+            searching.dijkstra(Main.loadNodesFromFile());
 
-            ObservableList path = FXCollections.observableList(new ArrayList(Arrays.asList(searching.getPath())));
+            GraphNode<String>[] landmarkPath = (GraphNode<String>[]) searching.getPath().toArray();
+
+            ObservableList path = FXCollections.observableList(new ArrayList(Arrays.asList(landmarkPath)));
             resultLandmarkName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
             resultTable.setItems(path);
