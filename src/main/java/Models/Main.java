@@ -38,7 +38,6 @@ public class Main extends Application {
         root = FXMLLoader.load(getClass().getResource("../finder.fxml"));
         finderScene = new Scene(root);
     }
-
     public static void main(String[] args) {
         try {
             saveNodeToFile(getLandmarks());
