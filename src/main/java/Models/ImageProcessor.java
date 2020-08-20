@@ -86,7 +86,7 @@ public class ImageProcessor {
 
                 // Creating a node of type colour with the x and y of the current node
                 // i refers to the y (height) and j refers to the x (width)
-                GraphNode<Color> node = new GraphNode<>("PATH@" + j  + "/" + i, j, i);
+                GraphNode<Color> node = new GraphNode<>("PATH@" + j  + ":" + i, j, i);
 
                 // giving the node its colour based on it's x and y
                 node.setData(pixelReader.getColor(node.getX(), node.getY()));

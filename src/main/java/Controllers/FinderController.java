@@ -10,8 +10,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class FinderController {
@@ -27,9 +30,9 @@ public class FinderController {
 
     GraphNode<String> startLandmark, endLandmark;
 
-    public void initialize() {
+    private GraphNode<String>[] landmarks;
 
-        GraphNode<String>[] landmarks;
+    public void initialize() {
 
         try {
 
@@ -67,16 +70,21 @@ public class FinderController {
         System.out.println(startLandmark.toString() + endLandmark.toString());
         try {
             Searching<String> searching = new Searching(startLandmark, endLandmark);
-            searching.dijkstra(Main.loadNodesFromFile());
+            searching.dijkstra(landmarks);
 
-            GraphNode<String>[] landmarkPath = (GraphNode<String>[]) searching.getPath().toArray();
+            Object[] landmarkPath = searching.getPath().toArray();
 
-            ObservableList path = FXCollections.observableList(new ArrayList(Arrays.asList(landmarkPath)));
+            ArrayList landmarkList = new ArrayList(Arrays.asList(landmarkPath));
+            landmarkList.add(startLandmark);
+
+            Collections.reverse(landmarkList);
+
+            ObservableList path = FXCollections.observableList(landmarkList);
             resultLandmarkName.setCellValueFactory(new PropertyValueFactory<>("name"));
 
             resultTable.setItems(path);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getStackTrace().toString());
         }
     }
 

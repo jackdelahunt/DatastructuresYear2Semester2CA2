@@ -29,9 +29,6 @@ if "%DIRNAME%" == "" set DIRNAME=.
 set APP_BASE_NAME=%~n0
 set APP_HOME=%DIRNAME%..
 
-@rem Resolve any "." and ".." in APP_HOME to make it shorter.
-for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
-
 @rem Add default JVM options here. You can also use JAVA_OPTS and MAP_OF_ROME_PATH_FINDER_OPTS to pass JVM options to this script.
 set DEFAULT_JVM_OPTS=
 
@@ -82,8 +79,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\Map-of-Rome-Path-Finder.jar;%APP_HOME%\lib\xstream-1.4.7.jar;%APP_HOME%\lib\javafx-fxml-13-win.jar;%APP_HOME%\lib\javafx-controls-13-win.jar;%APP_HOME%\lib\javafx-controls-13.jar;%APP_HOME%\lib\javafx-swing-13-win.jar;%APP_HOME%\lib\javafx-graphics-13-win.jar;%APP_HOME%\lib\javafx-graphics-13.jar;%APP_HOME%\lib\javafx-base-13-win.jar;%APP_HOME%\lib\javafx-base-13.jar;%APP_HOME%\lib\xpp3_min-1.1.4c.jar
-
+set CLASSPATH=%APP_HOME%\lib\Map-of-Rome-Path-Finder.jar;%APP_HOME%\lib\xstream-1.4.7.jar;%APP_HOME%\lib\javafx-fxml-13-win.jar;%APP_HOME%\lib\javafx-swing-13-win.jar;%APP_HOME%\lib\javafx-controls-13-win.jar;%APP_HOME%\lib\javafx-controls-13.jar;%APP_HOME%\lib\javafx-graphics-13-win.jar;%APP_HOME%\lib\javafx-graphics-13.jar;%APP_HOME%\lib\javafx-base-13-win.jar;%APP_HOME%\lib\javafx-base-13.jar;%APP_HOME%\lib\xpp3_min-1.1.4c.jar
 
 @rem Execute Map-of-Rome-Path-Finder
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MAP_OF_ROME_PATH_FINDER_OPTS%  -classpath "%CLASSPATH%" Models.Main %CMD_LINE_ARGS%

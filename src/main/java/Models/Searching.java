@@ -116,11 +116,6 @@ public class Searching <E> {
                 // cost of the current node to the next node
                 int nextCost = edge.getCost();
 
-                int costToCurrent = cost.get(current);
-                int costToNext = cost.get(nextNode);
-
-                System.out.printf("\nCost of current %d, cost of next %d", costToCurrent, costToNext);
-
                 // if the cost form the current node + cost of the connection is less
                 // then the path we already take then update
                 if(cost.get(current) + nextCost < cost.get(nextNode)){

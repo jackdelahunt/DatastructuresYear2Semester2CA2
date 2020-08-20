@@ -40,7 +40,7 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
         try {
-            saveNodeToFile(getLandmarks());
+            saveNodesToFile(getLandmarks());
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -91,7 +91,7 @@ public class Main extends Application {
         return nodes;
     }
 
-    public static void saveNodeToFile(GraphNode<String>[] nodes) throws Exception {
+    public static void saveNodesToFile(GraphNode<String>[] nodes) throws Exception {
         XStream xstream = new XStream(new DomDriver());
         ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("saves/Nodes.xml"));
         out.writeObject(nodes);
@@ -105,11 +105,6 @@ public class Main extends Application {
         GraphNode<String> colosseum = new GraphNode<>("The Colosseum", "The Colosseum", 857, 644);
         GraphNode<String> trevi = new GraphNode<>("Trevi Fountain", "Trevi Fountain", 734, 451);
 
-        vatican.connectToNodeUndirected(pantheon, 10);
-        trevi.connectToNodeUndirected(pantheon, 10);
-        pantheon.connectToNodeUndirected(forum, 10);
-        forum.connectToNodeUndirected(colosseum, 10);
-        
         GraphNode<String>[] landmarks = new GraphNode[5];
 
         landmarks[0] = vatican;
@@ -117,6 +112,11 @@ public class Main extends Application {
         landmarks[2] = forum;
         landmarks[3] = colosseum;
         landmarks[4] = trevi;
+
+        vatican.connectToNodeUndirected(pantheon, 10);
+        trevi.connectToNodeUndirected(pantheon, 10);
+        pantheon.connectToNodeUndirected(forum, 10);
+        forum.connectToNodeUndirected(colosseum, 10);
 
         return landmarks;
     }
